@@ -1,0 +1,68 @@
+cocoapods for LFLiveKit 公司盒子2
+
+Last login: Fri Nov 18 15:58:47 on ttys000
+bogon:~ admindyn$ cd /Users/admindyn/Desktop/集分宝项目工作目录/LFLiveKitDemo
+bogon:LFLiveKitDemo admindyn$ pod install --verbose -no-repo-update
+[!] Unknown command: `-no-repo-update`
+
+Usage:
+
+    $ pod install
+
+      Downloads all dependencies defined in `Podfile` and creates an Xcode Pods
+      library project in `./Pods`.
+
+      The Xcode project file should be specified in your `Podfile` like this:
+
+          project 'path/to/XcodeProject.xcodeproj'
+
+      If no project is specified, then a search for an Xcode project will be
+      made. If more than one Xcode project is found, the command will raise an
+      error.
+
+      This will configure the project to reference the Pods static library, add
+      a build configuration file, and add a post build script to copy Pod
+      resources.
+
+Options:
+
+    --repo-update                       Force running `pod repo update` before
+                                        install
+    --project-directory=/project/dir/   The path to the root of the project
+                                        directory
+    --silent                            Show nothing
+    --verbose                           Show more debugging information
+    --no-ansi                           Show output without ANSI codes
+    --help                              Show help banner of specified command
+
+/Users/admindyn/.rvm/gems/ruby-2.3.0/gems/claide-1.0.1/lib/claide/command.rb:439:in `help!'
+/Users/admindyn/.rvm/gems/ruby-2.3.0/gems/claide-1.0.1/lib/claide/command.rb:599:in `help!'
+/Users/admindyn/.rvm/gems/ruby-2.3.0/gems/claide-1.0.1/lib/claide/command.rb:559:in `validate!'
+/Users/admindyn/.rvm/gems/ruby-2.3.0/gems/cocoapods-1.1.1/lib/cocoapods/command/options/project_directory.rb:28:in `validate!'
+/Users/admindyn/.rvm/gems/ruby-2.3.0/gems/claide-1.0.1/lib/claide/command.rb:333:in `run'
+/Users/admindyn/.rvm/gems/ruby-2.3.0/gems/cocoapods-1.1.1/lib/cocoapods/command.rb:50:in `run'
+/Users/admindyn/.rvm/gems/ruby-2.3.0/gems/cocoapods-1.1.1/bin/pod:55:in `<top (required)>'
+/Users/admindyn/.rvm/gems/ruby-2.3.0/bin/pod:23:in `load'
+/Users/admindyn/.rvm/gems/ruby-2.3.0/bin/pod:23:in `<main>'
+/Users/admindyn/.rvm/gems/ruby-2.3.0/bin/ruby_executable_hooks:15:in `eval'
+/Users/admindyn/.rvm/gems/ruby-2.3.0/bin/ruby_executable_hooks:15:in `<main>'
+bogon:LFLiveKitDemo admindyn$ pod install 
+Setting up CocoaPods master repo
+
+CocoaPods 1.2.0.beta.1 is available.
+To update use: `gem install cocoapods --pre`
+[!] This is a test version we'd love you to try.
+
+For more information, see https://blog.cocoapods.org and the CHANGELOG for this version at https://github.com/CocoaPods/CocoaPods/releases/tag/1.2.0.beta.1
+
+Setup completed
+Analyzing dependencies
+Downloading dependencies
+Installing LFLiveKit (2.5)
+Generating Pods project
+Integrating client project
+
+[!] Please close any current Xcode sessions and use `LFLiveKitDemo.xcworkspace` for this project from now on.
+Sending stats
+Pod installation complete! There is 1 dependency from the Podfile and 1 total pod installed.
+bogon:LFLiveKitDemo admindyn$ 

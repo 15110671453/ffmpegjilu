@@ -1,0 +1,16 @@
+[root@iZ2850357ruZ yasm]# autoreconf -fiv
+autoreconf: Entering directory `.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal --force -I m4
+1.3.0
+autoreconf: configure.ac: tracing
+autoreconf: configure.ac: AM_GNU_GETTEXT is used, but not AM_GNU_GETTEXT_VERSION
+autoreconf: configure.ac: not using Libtool
+autoreconf: running: /usr/bin/autoconf --force
+autoreconf: running: /usr/bin/autoheader --force
+autoreconf: running: automake --add-missing --copy --force-missing
+configure.ac:14: installing 'config/install-sh'
+configure.ac:14: installing 'config/missing'
+Makefile.am: installing 'config/depcomp'
+parallel-tests: installing 'config/test-driver'
+autoreconf: Leaving directory `.'

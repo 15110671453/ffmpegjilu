@@ -1,0 +1,80 @@
+然后用ffmpeg推流到nginx:
+
+
+最新内容请访问: http://blog.csdn.net/redstarofsleep/article/details/45092147
+ 
+Nginx本身是一个非常出色的HTTP服务器,FFMPEG是非常好的音视频解决方案.这两个东西通过一个nginx的模块nginx-rtmp-module,组合在一起即可以搭建一个功能相对比较完善的流媒体服务器.
+这个流媒体服务器可以支持RTMP和HLS(Live Http Stream)
+从安装开始
+Nginx的安装参照我之前的这个: http://redstarofsleep.iteye.com/blog/2010391
+不同的是在configure的时候需要增加nginx-rtmp-module的支持,下载好nginx-rtmp-module后解压,然后nginx安装时增加这个模块(--add-module),其它都是一样的.
+ 
+Java代码  收藏代码
+./configure --prefix=/usr/local/nginx --with-pcre=/home/user/pcre/pcre-8.32 --with-zlib=/home/user/zlib/zlib-1.2.8 --with-openssl=/home/user/openssl/openssl-1.0.1i  --add-module=/home/user/nginx-rtmp-module  
+FFMPEG的安装参照上一篇: http://redstarofsleep.iteye.com/blog/2122612
+ 
+nginx配合ffmpeg做流媒体服务器的原理是: nginx通过rtmp模块提供rtmp服务, ffmpeg推送一个rtmp流到nginx, 然后客户端通过访问nginx来收看实时视频流. HLS也是差不多的原理,只是最终客户端是通过HTTP协议来访问的,但是ffmpeg推送流仍然是rtmp的.
+
+ 
+安装完成后,打开Nginx的配置文件nginx.conf进行配置
+首先在里面加入rtmp的配置
+Java代码  收藏代码
+rtmp {  
+    server {  
+        listen 1935;  
+  
+        application myapp {  
+            live on;  
+        }  
+        application hls {  
+            live on;  
+            hls on;  
+            hls_path /tmp/hls;  
+        }  
+    }  
+}  
+然后,针对hls,还需要在http里面增加一个location配置
+Java代码  收藏代码
+location /hls {  
+            types {  
+                application/vnd.apple.mpegurl m3u8;  
+                video/mp2t ts;  
+            }  
+            root /tmp;  
+            add_header Cache-Control no-cache;  
+}  
+ 
+这是一个最简单,最基础的配置, rtmp监听1935端口,如果是hls的话用hls on开启hls,并且为hls设置一个临时文件目录hls_path /tmp/hls; 其它更高级的配置可以参看nginx-rtmp-module的readme,里面有比较详细的介绍其它的配置,并且它还提供了一个通过JWPlayer在网页上播放的例子.
+ 
+保存完配置文件后,启动nginx,通过netstat -ltn命令可以看到增加了一个1935端口的监听.8080是nginx默认的http监听端口.
+Java代码  收藏代码
+# netstat -ltn  
+Active Internet connections (only servers)  
+Proto Recv-Q Send-Q Local Address           Foreign Address         State        
+tcp        0      0 127.0.1.1:53            0.0.0.0:*               LISTEN       
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN       
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN       
+tcp        0      0 0.0.0.0:1935            0.0.0.0:*               LISTEN       
+tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN       
+tcp6       0      0 :::22                   :::*                    LISTEN       
+tcp6       0      0 ::1:631                 :::*                    LISTEN    
+然后用ffmpeg推流到nginx:
+第一个是推到了上面配置的myapp上:
+Java代码  收藏代码
+ffmpeg -re -i "D:\download\film\aqgy\02.mp4" -vcodec libx264 -vprofile baseline -acodec aac  
+ -ar 44100 -strict -2 -ac 1 -f flv -s 1280x720 -q 10 rtmp://server:1935/  
+myapp/test1  
+第二个推送到hls上:
+Java代码  收藏代码
+ffmpeg -re -i "D:\download\film\aqgy\02.mp4" -vcodec libx264 -vprofile baseline -acodec aac  
+ -ar 44100 -strict -2 -ac 1 -f flv -s 1280x720 -q 10 rtmp://ip:1935/  
+hls/test2  
+现在我们的流媒体服务器有两个实时流了,一个是rtmp的,另一个是hls的,用流媒体播放器播放一下,流媒体播放器可以用vlc也可以用ffmpeg带的ffplay.手机也是可以播放的.
+ 
+上面这两个流的地址分别是:
+第一个就是推送的地址: rtmp://serverIp:1935/myapp/test1
+第二个是HTTP地址: http://serverIp:8080/hls/test2.m3u8
+ 
+最后贴上一段对于HLS这个比较特殊的流媒体协议的解释:
+       (这段解释来自: http://www.cnblogs.com/haibindev/archive/2013/01/30/2880764.html)
+　　HTTP Live Streaming（HLS）是苹果公司(Apple Inc.)实现的基于HTTP的流媒体传输协议，可实现流媒体的直播和点播，相对于常见的流媒体直播协议，例如RTMP协议、RTSP协议、MMS协议等，HLS直播最大的不同在于，直播客户端获取到的，并不是一个完整的数据流。HLS协议在服务器端将直播数据流存储为连续的、很短时长的媒体文件（MPEG-TS格式），而客户端则不断的下载并播放这些小文件，因为服务器端总是会将最新的直播数据生成新的小文件，这样客户端只要不停的按顺序播放从服务器获取到的文件，就实现了直播。由此可见，基本上可以认为，HLS是以点播的技术方式来实现直播。由于数据通过HTTP协议传输，所以完全不用考虑防火墙或者代理的问题，而且分段文件的时长很短，客户端可以很快的选择和切换码率，以适应不同带宽条件下的播放。不过HLS的这种技术特点，决定了它的延迟一般总是会高于普通的流媒体直播协议。

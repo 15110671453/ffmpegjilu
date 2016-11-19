@@ -1,0 +1,286 @@
+centos7 防火墙 与 ffmpeg+php的nginx配置文件
+
+[root@iZ2850357ruZ ~]# cd /data/soft/nginx/
+[root@iZ2850357ruZ nginx]# vi nginx.conf
+[root@iZ2850357ruZ nginx]# nginx -s reload
+[root@iZ2850357ruZ nginx]# firewall --query-service ssh
+bash: firewall: command not found...
+[root@iZ2850357ruZ nginx]# firewall-cmd --query-service ssh
+yes
+[root@iZ2850357ruZ nginx]# firewall-cmd --query-service vnc
+Error: INVALID_SERVICE: vnc
+[root@iZ2850357ruZ nginx]# 
+[root@iZ2850357ruZ nginx]# firewall-cmd --query-service vncserve
+Error: INVALID_SERVICE: vncserve
+[root@iZ2850357ruZ nginx]# firewall-cmd --query-service vncd
+Error: INVALID_SERVICE: vncd
+[root@iZ2850357ruZ nginx]# firewall-cmd --query-service http
+no
+[root@iZ2850357ruZ nginx]# firewall-cmd --add-service=http
+success
+[root@iZ2850357ruZ nginx]# firewall-cmd --query-service ftp
+yes
+[root@iZ2850357ruZ nginx]# firewall-cmd --query-service vnc-server
+yes
+[root@iZ2850357ruZ nginx]# 
+
+配置文件
+
+
+#user  nobody;
+user www  nginx;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+rtmp {
+    server {
+        listen 1935;
+
+        application myapp {
+            live on;
+
+            #record keyframes;
+            #record_path /tmp;
+            #record_max_size 128K;
+            #record_interval 30s;
+            #record_suffix .this.is.flv;
+
+            #on_publish http://localhost:8080/publish;
+            #on_play http://localhost:8080/play;
+            #on_record_done http://localhost:8080/record_done;
+        }
+        application hls {
+                                live on;
+                                hls on;
+                                record all;
+                                record_path /usr/local/nginx/html/videodata/record;
+                                record_interval 10s;
+                                record_append on;
+
+                                hls_path /usr/local/nginx/html/hlsdata/tmp;
+                                hls_fragment 5s;
+
+                                exec_record_done /usr/local/bin/ffmpeg -y -i /usr/local/nginx/html/videodata/record/livestream.flv -vcodec libx264 -f mp4 /usr/local/nginx/html/videodata/record/test_record.mp4 2>>/usr/local/nginx/html/videodata/record/test_record.log;
+                        }
+    }
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+
+
+    server {
+        listen       80;
+        server_name  www.ouryoung.date;
+
+        index index.html index.php index.htm;
+        root /usr/local/nginx/html/;
+        #autoindex on;
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+          location /stat {
+        root /usr/local/nginx/html/nginx-rtmp-module;
+            rtmp_stat all;
+            rtmp_stat_stylesheet stat.xsl;
+        }
+
+              location /stat.xsl {
+            root /usr/local/nginx/html/nginx-rtmp-module/;
+        }
+
+        location /control {
+         root /usr/local/nginx/html/nginx-rtmp-module;
+
+            rtmp_control all;
+        }
+
+        #location /publish {
+        #    return 201;
+        #}
+
+        #location /play {
+        #    return 202;
+        #}
+
+        #location /record_done {
+        #    return 203;
+        #}
+
+        location /rtmp-publisher {
+            root /usr/local/nginx/html/nginx-rtmp-module/test;
+        }
+        location /hlsdata/www {
+
+        }
+        location /hlsdata/tmp
+        {
+         types {
+                        application/vnd.apple.mpegurl m3u8;
+                        video/mp2t ts;
+                }
+                                expires -1;
+                add_header Cache-Control no-cache;
+        }
+
+        location / {
+          root /usr/local/nginx/html/;
+
+           # root /usr/local/nginx/html/nginx-rtmp-module/test/www;
+        }
+        location /dyndreamer {
+
+        }
+        location /heart {
+
+               }
+        location /dynstory {
+        }
+        location /dynsite {
+
+        }
+        location /login {
+
+        }
+        location /apptest {
+        autoindex on;
+        }
+        location /app {
+          autoindex on;
+        }
+        location /online {
+          autoindex off;
+        }
+        location /young20 {
+          autoindex off;
+        }
+        location /dyntvshow {
+        }
+        location /jsstudy {
+        }
+
+        location @rewrite {
+                set $static 0;
+                 if  ($uri ~ \.(css|js|jpg|jpeg|png|gif|ico|woff|eot|svg|css\.map|min\.map)$) {
+                 set $static 1;
+                 }
+                 if ($static = 0) {
+                # rewrite ^/(.*)$ /index.php?s=/$1;
+                rewrite ^/(.*)  /index.php?/$1 last;
+                  }
+          }
+           location ~ \.php$  {
+                root /usr/local/nginx/html/oscshop;
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                fastcgi_param SCRIPT_FILENAME /usr/local/nginx/html/oscshop$fastcgi_script_name;
+                include fastcgi.conf;
+        }
+        }
+
+ #      location ~ \.php$  {
+
+#               root /usr/local/nginx/html/oscshop
+#               fastcgi_pass 127.0.0.1:9000;
+#               fastcgi_index index.php;
+#               fastcgi_param SCRIPT_FILENAME /usr/local/nginx/html/oscshop$fastcgi_script_name;
+#                 include fastcgi.conf;
+#       }
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        #location = /50x.html {
+          #  root   html;
+
+       # }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
+    }
+
+    # another virtual host using mix of IP-, name-, and port-based configuration
+    #
+    #server {
+    #    listen       8000;
+   #    listen       8000;
+    #    listen       somename:8080;
+    #    server_name  somename  alias  another.alias;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+
+    # HTTPS server
+    #
+    #server {
+    #    listen       443 ssl;
+    #    server_name  localhost;
+
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
+
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
+
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+

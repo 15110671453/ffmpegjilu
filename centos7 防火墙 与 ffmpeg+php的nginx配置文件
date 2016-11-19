@@ -197,7 +197,8 @@ http {
                   }
           }
            location ~ \.php$  {
-                root /usr/local/nginx/html/oscshop;
+             #   root /usr/local/nginx/html/oscshop;
+             root /usr/local/nginx/html;
                 fastcgi_pass 127.0.0.1:9000;
                 fastcgi_index index.php;
                 fastcgi_param SCRIPT_FILENAME /usr/local/nginx/html/oscshop$fastcgi_script_name;

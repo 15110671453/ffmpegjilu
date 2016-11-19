@@ -1,0 +1,417 @@
+失败 最后还是重新编译安装的 
+
+
+[root@iZ2850357ruZ php]# ls -la
+total 40
+drwxr-xr-x 10 root root 4096 Sep  8 11:41 .
+drwxr-xr-x 17 root root 4096 Oct 20 23:20 ..
+drwxr-xr-x  2 root root 4096 Nov 19 11:28 bin
+drwxr-xr-x  3 root root 4096 Nov 19 11:28 etc
+drwxr-xr-x  2 root root 4096 Nov 19 11:28 fpm
+drwxr-xr-x  3 root root 4096 Sep  8 11:23 include
+drwxr-xr-x  3 root root 4096 Sep  8 11:23 lib
+drwxr-xr-x  3 root root 4096 Sep  8 11:23 php
+drwxr-xr-x  2 root root 4096 Nov 19 11:28 sbin
+drwxr-xr-x  4 root root 4096 Sep  8 11:23 var
+[root@iZ2850357ruZ php]# cd etc/
+[root@iZ2850357ruZ etc]# ls -la
+total 96
+drwxr-xr-x  3 root root  4096 Nov 19 11:28 .
+drwxr-xr-x 10 root root  4096 Sep  8 11:41 ..
+-rw-r--r--  1 root root  4458 Sep  8 11:47 php-fpm.conf
+-rw-r--r--  1 root root  4460 Nov 19 11:28 php-fpm.conf.default
+drwxr-xr-x  2 root root  4096 Nov 19 11:28 php-fpm.d
+-rw-r--r--  1 root root 69087 Sep  8 12:01 php.ini
+[root@iZ2850357ruZ etc]# vi php.ini 
+[root@iZ2850357ruZ etc]# cd /data/soft/php70/php-7.0.10/
+[root@iZ2850357ruZ php-7.0.10]# ls -la
+total 5896
+drwxr-xr-x 17 dingyanan dingyanan    4096 Nov 19 11:26 .
+drwxr-xr-x  4 root      root         4096 Sep  8 00:47 ..
+-rw-r--r--  1 dingyanan dingyanan   82329 Aug 18 03:50 acinclude.m4
+-rw-r--r--  1 dingyanan dingyanan  312706 Aug 18 03:50 aclocal.m4
+drwxr-xr-x  2 dingyanan dingyanan    4096 Aug 18 03:50 build
+-rwxr-xr-x  1 dingyanan dingyanan     772 Aug 18 03:50 buildconf
+-rw-r--r--  1 dingyanan dingyanan     334 Aug 18 03:50 buildconf.bat
+-rw-r--r--  1 dingyanan dingyanan   11982 Aug 18 03:52 CODING_STANDARDS
+-rw-r--r--  1 dingyanan dingyanan   42938 Aug 18 03:52 config.guess
+-rw-r--r--  1 root      root       885627 Nov 19 11:26 config.log
+-rwxr-xr-x  1 root      root          420 Nov 19 11:26 config.nice
+-rwxr-xr-x  1 root      root        51339 Nov 19 11:26 config.status
+-rw-r--r--  1 dingyanan dingyanan   35987 Aug 18 03:50 config.sub
+-rwxr-xr-x  1 dingyanan dingyanan 2736097 Aug 18 03:50 configure
+-rw-r--r--  1 dingyanan dingyanan   46743 Aug 18 03:50 configure.in
+-rw-r--r--  1 dingyanan dingyanan    3163 Aug 18 03:52 CONTRIBUTING.md
+-rw-r--r--  1 dingyanan dingyanan      91 Aug 18 03:52 CREDITS
+drwxr-xr-x 75 dingyanan dingyanan    4096 Aug 18 03:50 ext
+-rw-r--r--  1 dingyanan dingyanan   20831 Aug 18 03:50 EXTENSIONS
+-rw-r--r--  1 dingyanan dingyanan     137 Aug 18 03:50 footer
+-rw-r--r--  1 dingyanan dingyanan   13241 Aug 18 03:50 .gdbinit
+-rw-r--r--  1 dingyanan dingyanan    1776 Aug 18 03:50 generated_lists
+-rwxr-xr-x  1 dingyanan dingyanan     581 Aug 18 03:52 genfiles
+-rw-r--r--  1 dingyanan dingyanan    8980 Aug 18 03:50 .gitattributes
+-rw-r--r--  1 dingyanan dingyanan    5125 Aug 18 03:52 .gitignore
+-rw-r--r--  1 dingyanan dingyanan    1143 Aug 18 03:52 header
+drwxr-xr-x  2 root      root         4096 Sep  8 00:48 include
+-rw-r--r--  1 dingyanan dingyanan   87836 Aug 18 03:50 INSTALL
+-rw-r--r--  1 dingyanan dingyanan       0 Aug 18 03:50 install-sh
+drwxr-xr-x  2 root      root         4096 Sep  8 00:48 libs
+-rwxr-xr-x  1 root      root       210694 Nov 19 11:26 libtool
+-rw-r--r--  1 dingyanan dingyanan    3218 Aug 18 03:50 LICENSE
+-rw-r--r--  1 dingyanan dingyanan  199728 Aug 18 03:50 ltmain.sh
+drwxr-xr-x  4 dingyanan dingyanan    4096 Nov 19 11:27 main
+-rwxr-xr-x  1 dingyanan dingyanan    4129 Aug 18 03:52 makedist
+-rw-r--r--  1 root      root       262663 Nov 19 11:26 Makefile
+-rw-r--r--  1 dingyanan dingyanan    1088 Aug 18 03:50 Makefile.frag
+-rw-r--r--  1 root      root        14516 Nov 19 11:26 Makefile.fragments
+-rw-r--r--  1 dingyanan dingyanan    2485 Aug 18 03:50 Makefile.gcov
+-rw-r--r--  1 dingyanan dingyanan    7237 Aug 18 03:50 Makefile.global
+-rw-r--r--  1 root      root       215107 Nov 19 11:26 Makefile.objects
+-rw-r--r--  1 dingyanan dingyanan    5317 Aug 18 03:50 makerpm
+-rw-r--r--  1 dingyanan dingyanan       0 Aug 18 03:50 missing
+-rw-r--r--  1 dingyanan dingyanan       0 Aug 18 03:50 mkinstalldirs
+drwxr-xr-x  2 root      root         4096 Nov 19 11:28 modules
+drwxr-xr-x  2 dingyanan dingyanan    4096 Aug 18 03:50 netware
+-rw-r--r--  1 dingyanan dingyanan   71900 Aug 18 03:50 NEWS
+drwxr-xr-x  3 dingyanan dingyanan    4096 Sep  8 00:49 pear
+-rw-r--r--  1 root      root         1489 Nov 19 11:26 php7.spec
+-rw-r--r--  1 dingyanan dingyanan    1489 Aug 18 03:50 php7.spec.in
+-rw-r--r--  1 dingyanan dingyanan    2523 Aug 18 03:52 php.gif
+-rw-r--r--  1 dingyanan dingyanan   69087 Aug 18 03:50 php.ini-development
+-rw-r--r--  1 dingyanan dingyanan   69119 Aug 18 03:50 php.ini-production
+-rw-r--r--  1 dingyanan dingyanan    7010 Aug 18 03:50 README.EXT_SKEL
+-rw-r--r--  1 dingyanan dingyanan    5025 Aug 18 03:50 README.GIT-RULES
+-rw-r--r--  1 dingyanan dingyanan    5417 Aug 18 03:52 README.input_filter
+-rw-r--r--  1 dingyanan dingyanan    3426 Aug 18 03:50 README.MAILINGLIST_RULES
+-rw-r--r--  1 dingyanan dingyanan    1473 Aug 18 03:50 README.md
+-rw-r--r--  1 dingyanan dingyanan    6040 Aug 18 03:50 README.namespaces
+-rw-r--r--  1 dingyanan dingyanan    5237 Aug 18 03:50 README.NEW-OUTPUT-API
+-rw-r--r--  1 dingyanan dingyanan    7528 Aug 18 03:50 README.PARAMETER_PARSING_API
+-rw-r--r--  1 dingyanan dingyanan   19766 Aug 18 03:50 README.REDIST.BINS
+-rw-r--r--  1 dingyanan dingyanan   12700 Aug 18 03:52 README.RELEASE_PROCESS
+-rw-r--r--  1 dingyanan dingyanan    5086 Aug 18 03:50 README.SELF-CONTAINED-EXTENSIONS
+-rw-r--r--  1 dingyanan dingyanan   15355 Aug 18 03:50 README.STREAMS
+-rw-r--r--  1 dingyanan dingyanan    8126 Aug 18 03:50 README.SUBMITTING_PATCH
+-rw-r--r--  1 dingyanan dingyanan    6695 Aug 18 03:50 README.TESTING
+-rw-r--r--  1 dingyanan dingyanan    4958 Aug 18 03:52 README.TESTING2
+-rw-r--r--  1 dingyanan dingyanan    4261 Aug 18 03:50 README.UNIX-BUILD-SYSTEM
+-rw-r--r--  1 dingyanan dingyanan     109 Aug 18 03:50 README.WIN32-BUILD-SYSTEM
+-rwxr-xr-x  1 dingyanan dingyanan   83100 Aug 18 03:52 run-tests.php
+drwxr-xr-x 10 dingyanan dingyanan    4096 Aug 18 03:50 sapi
+drwxr-xr-x  4 dingyanan dingyanan    4096 Nov 19 11:26 scripts
+-rwxr-xr-x  1 dingyanan dingyanan    2104 Aug 18 03:50 server-tests-config.php
+-rwxr-xr-x  1 dingyanan dingyanan   53286 Aug 18 03:50 server-tests.php
+-rwxr-xr-x  1 dingyanan dingyanan     108 Aug 18 03:50 snapshot
+-rw-r--r--  1 dingyanan dingyanan      10 Aug 18 03:50 stamp-h.in
+-rw-r--r--  1 dingyanan dingyanan       1 Aug 18 03:50 stub.c
+drwxr-xr-x 10 dingyanan dingyanan    4096 Aug 18 03:50 tests
+drwxr-xr-x  3 dingyanan dingyanan    4096 Aug 18 03:50 travis
+-rw-r--r--  1 dingyanan dingyanan    1622 Aug 18 03:50 .travis.yml
+drwxr-xr-x  4 dingyanan dingyanan    4096 Sep  8 00:57 TSRM
+-rw-r--r--  1 dingyanan dingyanan   28945 Aug 18 03:50 UPGRADING
+-rw-r--r--  1 dingyanan dingyanan   15442 Aug 18 03:50 UPGRADING.INTERNALS
+-rwxr-xr-x  1 dingyanan dingyanan     146 Aug 18 03:50 vcsclean
+drwxr-xr-x  3 dingyanan dingyanan    4096 Aug 18 03:50 win32
+drwxr-xr-x  5 dingyanan dingyanan   12288 Sep  8 00:59 Zend
+[root@iZ2850357ruZ php-7.0.10]# cd ext/
+[root@iZ2850357ruZ ext]# ls -la
+total 324
+drwxr-xr-x 75 dingyanan dingyanan  4096 Aug 18 03:50 .
+drwxr-xr-x 17 dingyanan dingyanan  4096 Nov 19 11:26 ..
+drwxr-xr-x  4 dingyanan dingyanan  4096 Aug 18 03:51 bcmath
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 bz2
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 calendar
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 com_dotnet
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:53 ctype
+drwxr-xr-x  4 dingyanan dingyanan  4096 Nov 19 11:18 curl
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 00:50 date
+drwxr-xr-x  6 dingyanan dingyanan  4096 Aug 18 03:51 dba
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 00:53 dom
+drwxr-xr-x  4 dingyanan dingyanan  4096 Aug 18 03:50 enchant
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 exif
+-rwxr-xr-x  1 dingyanan dingyanan  8671 Aug 18 03:51 ext_skel
+-rw-r--r--  1 dingyanan dingyanan  1169 Aug 18 03:51 ext_skel_win32.php
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 00:53 fileinfo
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 00:54 filter
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 ftp
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 11:19 gd
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 gettext
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:52 gmp
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:54 hash
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:54 iconv
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 imap
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 interbase
+drwxr-xr-x 21 dingyanan dingyanan  4096 Aug 18 03:51 intl
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:54 json
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 ldap
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:51 libxml
+drwxr-xr-x  7 dingyanan dingyanan  4096 Sep  8 11:21 mbstring
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 mcrypt
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 11:21 mysqli
+drwxr-xr-x  3 dingyanan dingyanan  4096 Sep  8 11:22 mysqlnd
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:50 oci8
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:52 odbc
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 00:50 opcache
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 openssl
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 pcntl
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 00:52 pcre
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:54 pdo
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 pdo_dblib
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:50 pdo_firebird
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 11:21 pdo_mysql
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 pdo_oci
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 pdo_odbc
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 pdo_pgsql
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:54 pdo_sqlite
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 pgsql
+drwxr-xr-x  5 dingyanan dingyanan  4096 Nov 19 11:28 phar
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:55 posix
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 pspell
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 readline
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 recode
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:55 reflection
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:55 session
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 shmop
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 00:55 simplexml
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 skeleton
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 snmp
+drwxr-xr-x  4 dingyanan dingyanan  4096 Aug 18 03:51 soap
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 sockets
+drwxr-xr-x  6 dingyanan dingyanan  4096 Sep  8 00:55 spl
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 00:52 sqlite3
+drwxr-xr-x  5 dingyanan dingyanan 12288 Nov 19 11:27 standard
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:52 sysvmsg
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 sysvsem
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 sysvshm
+drwxr-xr-x  4 dingyanan dingyanan  4096 Aug 18 03:52 tidy
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:57 tokenizer
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:50 wddx
+drwxr-xr-x  4 dingyanan dingyanan  4096 Sep  8 00:57 xml
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 00:57 xmlreader
+drwxr-xr-x  4 dingyanan dingyanan  4096 Aug 18 03:51 xmlrpc
+drwxr-xr-x  5 dingyanan dingyanan  4096 Sep  8 00:57 xmlwriter
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 xsl
+drwxr-xr-x  5 dingyanan dingyanan  4096 Aug 18 03:51 zip
+drwxr-xr-x  3 dingyanan dingyanan  4096 Aug 18 03:51 zlib
+[root@iZ2850357ruZ ext]# cd curl/
+[root@iZ2850357ruZ curl]# ls -la
+total 788
+drwxr-xr-x  4 dingyanan dingyanan   4096 Nov 19 11:18 .
+drwxr-xr-x 75 dingyanan dingyanan   4096 Aug 18 03:50 ..
+-rw-r--r--  1 dingyanan dingyanan   3813 Aug 18 03:51 config.m4
+-rw-r--r--  1 dingyanan dingyanan   1113 Aug 18 03:51 config.w32
+-rw-r--r--  1 dingyanan dingyanan     21 Aug 18 03:51 CREDITS
+-rw-r--r--  1 dingyanan dingyanan   5733 Aug 18 03:51 curl_file.c
+-rw-r--r--  1 root      root         327 Nov 19 11:18 curl_file.lo
+-rw-r--r--  1 root      root       48288 Nov 19 11:18 curl_file.o
+-rw-r--r--  1 dingyanan dingyanan 109584 Aug 18 03:51 interface.c
+-rw-r--r--  1 root      root         327 Nov 19 11:18 interface.lo
+-rw-r--r--  1 root      root      443896 Nov 19 11:18 interface.o
+drwxr-xr-x  2 root      root        4096 Nov 19 11:18 .libs
+-rw-r--r--  1 dingyanan dingyanan  12256 Aug 18 03:51 multi.c
+-rw-r--r--  1 root      root         315 Nov 19 11:18 multi.lo
+-rw-r--r--  1 root      root       77592 Nov 19 11:18 multi.o
+-rw-r--r--  1 dingyanan dingyanan   1635 Aug 18 03:51 package.xml
+-rw-r--r--  1 dingyanan dingyanan   5676 Aug 18 03:51 php_curl.h
+-rw-r--r--  1 dingyanan dingyanan   3526 Aug 18 03:51 share.c
+-rw-r--r--  1 root      root         315 Nov 19 11:18 share.lo
+-rw-r--r--  1 root      root       40776 Nov 19 11:18 share.o
+drwxr-xr-x  3 dingyanan dingyanan   4096 Aug 18 03:51 tests
+[root@iZ2850357ruZ curl]# pwd
+/data/soft/php70/php-7.0.10/ext/curl
+[root@iZ2850357ruZ curl]# cd /usr/local/php/bin/
+[root@iZ2850357ruZ bin]# ls -la
+total 102484
+drwxr-xr-x  2 root root     4096 Nov 19 11:28 .
+drwxr-xr-x 10 root root     4096 Sep  8 11:41 ..
+-rwxr-xr-x  1 root root      829 Nov 19 11:19 pear
+-rwxr-xr-x  1 root root      850 Nov 19 11:19 peardev
+-rwxr-xr-x  1 root root      766 Nov 19 11:19 pecl
+lrwxrwxrwx  1 root root        9 Nov 19 11:28 phar -> phar.phar
+-rwxr-xr-x  1 root root    53494 Nov 19 11:28 phar.phar
+-rwxr-xr-x  1 root root 34729201 Nov 19 11:28 php
+-rwxr-xr-x  1 root root 34574776 Nov 19 11:28 php-cgi
+-rwxr-xr-x  1 root root     2611 Nov 19 11:28 php-config
+-rwxr-xr-x  1 root root 35544516 Nov 19 11:28 phpdbg
+-rwxr-xr-x  1 root root     4543 Nov 19 11:28 phpize
+[root@iZ2850357ruZ bin]# cd /data/soft/php70/php-7.0.10/ext/curl/
+[root@iZ2850357ruZ curl]# /usr/local/php/bin/phpize 
+Configuring for:
+PHP Api Version:         20151012
+Zend Module Api No:      20151012
+Zend Extension Api No:   320151012
+[root@iZ2850357ruZ curl]# rpm -ql curl
+/usr/bin/curl
+/usr/share/doc/curl-7.29.0
+/usr/share/doc/curl-7.29.0/BUGS
+/usr/share/doc/curl-7.29.0/CHANGES
+/usr/share/doc/curl-7.29.0/COPYING
+/usr/share/doc/curl-7.29.0/FAQ
+/usr/share/doc/curl-7.29.0/FEATURES
+/usr/share/doc/curl-7.29.0/MANUAL
+/usr/share/doc/curl-7.29.0/README
+/usr/share/doc/curl-7.29.0/RESOURCES
+/usr/share/doc/curl-7.29.0/TODO
+/usr/share/doc/curl-7.29.0/TheArtOfHttpScripting
+/usr/share/man/man1/curl.1.gz
+[root@iZ2850357ruZ curl]# which curl
+/usr/bin/curl
+[root@iZ2850357ruZ curl]# ./configure --with-curl=/usr/share/doc/curl-7.29.0 --with-php-config=/usr/local/php/bin/php-config
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for cc... cc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether cc accepts -g... yes
+checking for cc option to accept ISO C89... none needed
+checking how to run the C preprocessor... cc -E
+checking for icc... no
+checking for suncc... no
+checking whether cc understands -c and -o together... yes
+checking for system library directory... lib
+checking if compiler supports -R... no
+checking if compiler supports -Wl,-rpath,... yes
+checking build system type... x86_64-unknown-linux-gnu
+checking host system type... x86_64-unknown-linux-gnu
+checking target system type... x86_64-unknown-linux-gnu
+checking for PHP prefix... /usr/local/php
+checking for PHP includes... -I/usr/local/php/include/php -I/usr/local/php/include/php/main -I/usr/local/php/include/php/TSRM -I/usr/local/php/include/php/Zend -I/usr/local/php/include/php/ext -I/usr/local/php/include/php/ext/date/lib
+checking for PHP extension directory... /usr/local/php/lib/php/extensions/no-debug-non-zts-20151012
+checking for PHP installed headers prefix... /usr/local/php/include/php
+checking if debug is enabled... no
+checking if zts is enabled... no
+checking for re2c... no
+configure: WARNING: You will need re2c 0.13.4 or later if you want to regenerate PHP parsers.
+checking for gawk... gawk
+checking for cURL support... yes, shared
+checking for cURL in default path... found in /usr
+checking for cURL 7.10.5 or greater... libcurl 7.29.0
+checking for SSL support in libcurl... yes
+checking how to run the C preprocessor... cc -E
+checking for openssl support in libcurl... checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+no
+checking for gnutls support in libcurl... no
+checking for curl_easy_perform in -lcurl... yes
+checking for curl_easy_strerror in -lcurl... yes
+checking for curl_multi_strerror in -lcurl... yes
+checking for ld used by cc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for /usr/bin/ld option to reload object files... -r
+checking for BSD-compatible nm... /usr/bin/nm -B
+checking whether ln -s works... yes
+checking how to recognize dependent libraries... pass_all
+checking dlfcn.h usability... yes
+checking dlfcn.h presence... yes
+checking for dlfcn.h... yes
+checking the maximum length of command line arguments... 1572864
+checking command to parse /usr/bin/nm -B output from cc object... ok
+checking for objdir... .libs
+checking for ar... ar
+checking for ranlib... ranlib
+checking for strip... strip
+checking if cc supports -fno-rtti -fno-exceptions... no
+checking for cc option to produce PIC... -fPIC
+checking if cc PIC flag -fPIC works... yes
+checking if cc static flag -static works... no
+checking if cc supports -c -o file.o... yes
+checking whether the cc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+
+creating libtool
+appending configuration tag "CXX" to libtool
+configure: creating ./config.status
+config.status: creating config.h
+[root@iZ2850357ruZ curl]# cd /usr/local/php/lib/php/extensions/
+[root@iZ2850357ruZ extensions]# ls -la
+total 12
+drwxr-xr-x  3 root root 4096 Sep  8 11:23 .
+drwxr-xr-x 15 root root 4096 Nov 19 11:19 ..
+drwxr-xr-x  2 root root 4096 Nov 19 11:28 no-debug-non-zts-20151012
+[root@iZ2850357ruZ extensions]# cd no-debug-non-zts-20151012/
+[root@iZ2850357ruZ no-debug-non-zts-20151012]# ls -la
+total 2808
+drwxr-xr-x 2 root root    4096 Nov 19 11:28 .
+drwxr-xr-x 3 root root    4096 Sep  8 11:23 ..
+-rwxr-xr-x 1 root root 1949828 Nov 19 11:28 opcache.a
+-rwxr-xr-x 1 root root  909812 Nov 19 11:28 opcache.so
+[root@iZ2850357ruZ no-debug-non-zts-20151012]# cd /data/soft/php70/php-7.0.10/ext/
+[root@iZ2850357ruZ ext]# cd curl/
+[root@iZ2850357ruZ curl]# make
+/bin/sh /data/soft/php70/php-7.0.10/ext/curl/libtool --mode=link cc -DPHP_ATOM_INC -I/data/soft/php70/php-7.0.10/ext/curl/include -I/data/soft/php70/php-7.0.10/ext/curl/main -I/data/soft/php70/php-7.0.10/ext/curl -I/usr/local/php/include/php -I/usr/local/php/include/php/main -I/usr/local/php/include/php/TSRM -I/usr/local/php/include/php/Zend -I/usr/local/php/include/php/ext -I/usr/local/php/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -o curl.la -export-dynamic -avoid-version -prefer-pic -module -rpath /data/soft/php70/php-7.0.10/ext/curl/modules  interface.lo multi.lo share.lo curl_file.lo -lcurl -lcurl
+cc -shared  .libs/interface.o .libs/multi.o .libs/share.o .libs/curl_file.o  -lcurl  -Wl,-soname -Wl,curl.so -o .libs/curl.so
+creating curl.la
+(cd .libs && rm -f curl.la && ln -s ../curl.la curl.la)
+/bin/sh /data/soft/php70/php-7.0.10/ext/curl/libtool --mode=install cp ./curl.la /data/soft/php70/php-7.0.10/ext/curl/modules
+cp ./.libs/curl.so /data/soft/php70/php-7.0.10/ext/curl/modules/curl.so
+cp ./.libs/curl.lai /data/soft/php70/php-7.0.10/ext/curl/modules/curl.la
+PATH="$PATH:/sbin" ldconfig -n /data/soft/php70/php-7.0.10/ext/curl/modules
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /data/soft/php70/php-7.0.10/ext/curl/modules
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,--rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+Build complete.
+Don't forget to run 'make test'.
+
+[root@iZ2850357ruZ curl]# make install
+Installing shared extensions:     /usr/local/php/lib/php/extensions/no-debug-non-zts-20151012/
+[root@iZ2850357ruZ curl]# 
+
+
+[root@iZ2850357ruZ etc]# cd  /usr/local/php/lib/php/extensions/no-debug-non-zts-20151012/
+[root@iZ2850357ruZ no-debug-non-zts-20151012]# ls -la
+total 3104
+drwxr-xr-x 2 root root    4096 Nov 19 11:43 .
+drwxr-xr-x 3 root root    4096 Sep  8 11:23 ..
+-rwxr-xr-x 1 root root  301920 Nov 19 11:43 curl.so
+-rwxr-xr-x 1 root root 1949828 Nov 19 11:28 opcache.a
+-rwxr-xr-x 1 root root  909812 Nov 19 11:28 opcache.so
+[root@iZ2850357ruZ no-debug-non-zts-20151012]# 
+
+
+
+
+然后的事就简单了，给你的php.ini添加一条extension=mcrypt.so
+
+[root@*_* 15:09 mcrypt]# cd /etc/php.d
+创建一个mrcypt.ini文件就行，里面写extension=mcrypt.so
+
+[root@*_* 15:17 php.d]# echo 'extension=mcrypt.so' > mcrypt.ini
+
+
+失败 最后还是重新编译安装的
+

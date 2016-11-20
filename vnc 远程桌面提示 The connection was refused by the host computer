@@ -1,0 +1,522 @@
+
+vnc 远程桌面提示 The connection was refused by the host computer
+
+[root@iZ2850357ruZ ~]# firewall-cmd -h
+
+Usage: firewall-cmd [OPTIONS...]
+
+General Options
+  -h, --help           Prints a short help text and exists
+  -V, --version        Print the version string of firewalld
+  -q, --quiet          Do not print status messages
+
+Status Options
+  --state              Return and print firewalld state
+  --reload             Reload firewall and keep state information
+  --complete-reload    Reload firewall and loose state information
+  --runtime-to-permanent
+                       Create permanent from runtime configuration
+
+Permanent Options
+  --permanent          Set an option permanently
+                       Usable for options maked with [P]
+
+Zone Options
+  --get-default-zone   Print default zone for connections and interfaces
+  --set-default-zone=<zone>
+                       Set default zone
+  --get-active-zones   Print currently active zones
+  --get-zones          Print predefined zones [P]
+  --get-services       Print predefined services [P]
+  --get-icmptypes      Print predefined icmptypes [P]
+  --get-zone-of-interface=<interface>
+                       Print name of the zone the interface is bound to [P]
+  --get-zone-of-source=<source>[/<mask>]
+                       Print name of the zone the source[/mask] is bound to [P]
+  --list-all-zones     List everything added for or enabled in all zones [P]
+  --new-zone=<zone>    Add a new zone [P only]
+  --delete-zone=<zone> Delete an existing zone [P only]
+  --zone=<zone>        Use this zone to set or query options, else default zone
+                       Usable for options maked with [Z]
+  --get-target         Get the zone target [P] [Z]
+  --set-target=<target>
+                       Set the zone target [P] [Z]
+
+IcmpType Options
+  --new-icmptype=<icmptype>
+                       Add a new icmptype [P only]
+  --delete-icmptype=<icmptype>
+                       Delete and existing icmptype [P only]
+
+Service Options
+  --new-service=<service>
+                       Add a new service [P only]
+  --delete-service=<service>
+                       Delete and existing service [P only]
+
+Options to Adapt and Query Zones
+  --list-all           List everything added for or enabled in a zone [P] [Z]
+  --list-services      List services added for a zone [P] [Z]
+  --timeout=<timeval>  Enable an option for timeval time, where timeval is
+                       a number followed by one of letters 's' or 'm' or 'h'
+                       Usable for options maked with [T]
+  --add-service=<service>
+                       Add a service for a zone [P] [Z] [T]
+  --remove-service=<service>
+                       Remove a service from a zone [P] [Z]
+  --query-service=<service>
+                       Return whether service has been added for a zone [P] [Z]
+  --list-ports         List ports added for a zone [P] [Z]
+  --add-port=<portid>[-<portid>]/<protocol>
+                       Add the port for a zone [P] [Z] [T]
+  --remove-port=<portid>[-<portid>]/<protocol>
+                       Remove the port from a zone [P] [Z]
+  --query-port=<portid>[-<portid>]/<protocol>
+                       Return whether the port has been added for zone [P] [Z]
+  --list-icmp-blocks   List Internet ICMP type blocks added for a zone [P] [Z]
+  --add-icmp-block=<icmptype>
+                       Add an ICMP block for a zone [P] [Z] [T]
+  --remove-icmp-block=<icmptype>
+                       Remove the ICMP block from a zone [P] [Z]
+  --query-icmp-block=<icmptype>
+                       Return whether an ICMP block has been added for a zone
+                       [P] [Z]
+  --list-forward-ports List IPv4 forward ports added for a zone [P] [Z]
+  --add-forward-port=port=<portid>[-<portid>]:proto=<protocol>[:toport=<portid>[-<portid>]][:toaddr=<address>[/<mask>]]
+                       Add the IPv4 forward port for a zone [P] [Z] [T]
+  --remove-forward-port=port=<portid>[-<portid>]:proto=<protocol>[:toport=<portid>[-<portid>]][:toaddr=<address>[/<mask>]]
+                       Remove the IPv4 forward port from a zone [P] [Z]
+
+
+  --query-forward-port=port=<portid>[-<portid>]:proto=<protocol>[:toport=<portid>[-<portid>]][:toaddr=<address>[/<mask>]]
+                       Return whether the IPv4 forward port has been added for
+                       a zone [P] [Z]
+  --add-masquerade     Enable IPv4 masquerade for a zone [P] [Z] [T]
+  --remove-masquerade  Disable IPv4 masquerade for a zone [P] [Z]
+  --query-masquerade   Return whether IPv4 masquerading has been enabled for a
+                       zone [P] [Z]
+  --list-rich-rules    List rich language rules added for a zone [P] [Z]
+  --add-rich-rule=<rule>
+                       Add rich language rule 'rule' for a zone [P] [Z] [T]
+  --remove-rich-rule=<rule>
+                       Remove rich language rule 'rule' from a zone [P] [Z]
+  --query-rich-rule=<rule>
+                       Return whether a rich language rule 'rule' has been
+                       added for a zone [P] [Z]
+
+Options to Handle Bindings of Interfaces
+  --list-interfaces    List interfaces that are bound to a zone [P] [Z]
+  --add-interface=<interface>
+                       Bind the <interface> to a zone [P] [Z]
+  --change-interface=<interface>
+                       Change zone the <interface> is bound to [Z]
+  --query-interface=<interface>
+                       Query whether <interface> is bound to a zone [P] [Z]
+  --remove-interface=<interface>
+                       Remove binding of <interface> from a zone [P] [Z]
+
+Options to Handle Bindings of Sources
+  --list-sources       List sources that are bound to a zone [P] [Z]
+  --add-source=<source>[/<mask>]
+                       Bind <source>[/<mask>] to a zone [P] [Z]
+  --change-source=<source>[/<mask>]
+                       Change zone the <source>[/<mask>] is bound to [Z]
+  --query-source=<source>[/<mask>]
+                       Query whether <source>[/<mask>] is bound to a zone
+                       [P] [Z]
+  --remove-source=<source>[/<mask>]
+                       Remove binding of <source>[/<mask>] from a zone [P] [Z]
+
+Direct Options
+  --direct             First option for all direct options
+  --get-all-chains
+                       Get all chains [P]
+  --get-chains {ipv4|ipv6|eb} <table>
+                       Get all chains added to the table [P]
+  --add-chain {ipv4|ipv6|eb} <table> <chain>
+                       Add a new chain to the table [P]
+  --remove-chain {ipv4|ipv6|eb} <table> <chain>
+                       Remove the chain from the table [P]
+  --query-chain {ipv4|ipv6|eb} <table> <chain>
+                       Return whether the chain has been added to the table [P]
+  --get-all-rules
+                       Get all rules [P]
+  --get-rules {ipv4|ipv6|eb} <table> <chain>
+                       Get all rules added to chain in table [P]
+  --add-rule {ipv4|ipv6|eb} <table> <chain> <priority> <arg>...
+                       Add rule to chain in table [P]
+  --remove-rule {ipv4|ipv6|eb} <table> <chain> <priority> <arg>...
+                       Remove rule with priority from chain in table [P]
+  --remove-rules {ipv4|ipv6|eb} <table> <chain>
+                       Remove rules from chain in table [P]
+  --query-rule {ipv4|ipv6|eb} <table> <chain> <priority> <arg>...
+                       Return whether a rule with priority has been added to
+                       chain in table [P]
+  --passthrough {ipv4|ipv6|eb} <arg>...
+                       Pass a command through (untracked by firewalld)
+  --get-all-passthroughs
+                       Get all tracked passthrough rules [P]
+  --get-passthroughs {ipv4|ipv6|eb} <arg>...
+                       Get tracked passthrough rules [P]
+  --add-passthrough {ipv4|ipv6|eb} <arg>...
+                       Add a new tracked passthrough rule [P]
+  --remove-passthrough {ipv4|ipv6|eb} <arg>...
+                       Remove a tracked passthrough rule [P]
+  --query-passthrough {ipv4|ipv6|eb} <arg>...
+                       Return whether the tracked passthrough rule has been
+                       added [P]
+
+Lockdown Options
+  --lockdown-on        Enable lockdown.
+  --lockdown-off       Disable lockdown.
+  --query-lockdown     Query whether lockdown is enabled
+
+Lockdown Whitelist Options
+  --list-lockdown-whitelist-commands
+                       List all command lines that are on the whitelist [P]
+  --add-lockdown-whitelist-command=<command>
+                       Add the command to the whitelist [P]
+  --remove-lockdown-whitelist-command=<command>
+                       Remove the command from the whitelist [P]
+  --query-lockdown-whitelist-command=<command>
+                       Query whether the command is on the whitelist [P]
+  --list-lockdown-whitelist-contexts
+                       List all contexts that are on the whitelist [P]
+  --add-lockdown-whitelist-context=<context>
+                       Add the context context to the whitelist [P]
+  --remove-lockdown-whitelist-context=<context>
+                       Remove the context from the whitelist [P]
+  --query-lockdown-whitelist-context=<context>
+                       Query whether the context is on the whitelist [P]
+  --list-lockdown-whitelist-uids
+                       List all user ids that are on the whitelist [P]
+  --add-lockdown-whitelist-uid=<uid>
+                       Add the user id uid to the whitelist [P]
+  --remove-lockdown-whitelist-uid=<uid>
+                       Remove the user id uid from the whitelist [P]
+  --query-lockdown-whitelist-uid=<uid>
+                       Query whether the user id uid is on the whitelist [P]
+  --list-lockdown-whitelist-users
+                       List all user names that are on the whitelist [P]
+  --add-lockdown-whitelist-user=<user>
+                       Add the user name user to the whitelist [P]
+  --remove-lockdown-whitelist-user=<user>
+                       Remove the user name user from the whitelist [P]
+  --query-lockdown-whitelist-user=<user>
+                       Query whether the user name user is on the whitelist [P]
+
+Panic Options
+  --panic-on           Enable panic mode
+  --panic-off          Disable panic mode
+  --query-panic        Query whether panic mode is enabled
+
+[root@iZ2850357ruZ ~]# firewall-cmd --add-port=5901/tcp
+success
+[root@iZ2850357ruZ ~]# firewall-cmd reload
+usage: see firewall-cmd man page
+firewall-cmd: error: unrecognized arguments: reload
+[root@iZ2850357ruZ ~]# firewall-cmd --reload
+success
+[root@iZ2850357ruZ ~]# firewall-cmd --list-all
+public (default, active)
+  interfaces: eth0 eth1
+  sources: 
+  services: dhcpv6-client ftp ssh vnc-server
+  ports: 
+  masquerade: no
+  forward-ports: 
+  icmp-blocks: 
+  rich rules: 
+	
+[root@iZ2850357ruZ ~]# firewall-cmd --query-service vnc-server
+yes
+[root@iZ2850357ruZ ~]# service vncserver restart
+Redirecting to /bin/systemctl restart  vncserver.service
+Failed to restart vncserver.service: Unit vncserver.service failed to load: No such file or directory.
+[root@iZ2850357ruZ ~]# vncserver -h
+
+usage: vncserver [:<number>] [-name <desktop-name>] [-depth <depth>]
+                 [-geometry <width>x<height>]
+                 [-pixelformat rgbNNN|bgrNNN]
+                 [-fp <font-path>]
+                 [-cc <visual>]
+                 [-fg]
+                 [-autokill]
+                 <Xvnc-options>...
+
+       vncserver -kill <X-display>
+
+       vncserver -list
+
+[root@iZ2850357ruZ ~]# vncserver -list
+
+TigerVNC server sessions:
+
+X DISPLAY #	PROCESS ID
+:1		4218
+[root@iZ2850357ruZ ~]# vncserver 
+
+Warning: iZ2850357ruZ:1 is taken because of /tmp/.X1-lock
+Remove this file if there is no X server iZ2850357ruZ:1
+
+New 'iZ2850357ruZ:2 (root)' desktop is iZ2850357ruZ:2
+
+Starting applications specified in /root/.vnc/xstartup
+Log file is /root/.vnc/iZ2850357ruZ:2.log
+
+[root@iZ2850357ruZ ~]# vncserver -list
+
+TigerVNC server sessions:
+
+X DISPLAY #	PROCESS ID
+:1		4218
+:2		22119
+[root@iZ2850357ruZ ~]# kill -9 4218
+-bash: kill: (4218) - No such process
+[root@iZ2850357ruZ ~]# kill -9 22119
+[root@iZ2850357ruZ ~]# vncserver -list
+
+TigerVNC server sessions:
+
+X DISPLAY #	PROCESS ID
+:1		4218
+:2		22119
+[root@iZ2850357ruZ ~]# kill -s 9  22119
+-bash: kill: (22119) - No such process
+[root@iZ2850357ruZ ~]# kill -s 9  4218
+-bash: kill: (4218) - No such process
+[root@iZ2850357ruZ ~]# vncserver -list
+
+TigerVNC server sessions:
+
+X DISPLAY #	PROCESS ID
+:1		4218
+:2		22119
+[root@iZ2850357ruZ ~]# ps aux | grep vncserver
+root     22407  0.0  0.0 112648   968 pts/0    S+   18:24   0:00 grep --color=auto vncserver
+[root@iZ2850357ruZ ~]# vncserver -list
+
+TigerVNC server sessions:
+
+X DISPLAY #	PROCESS ID
+:1		4218
+:2		22119
+[root@iZ2850357ruZ ~]# kill -s 9 22407
+-bash: kill: (22407) - No such process
+[root@iZ2850357ruZ ~]# ps aux | grep vncserver
+root     22417  0.0  0.0 112648   968 pts/0    S+   18:25   0:00 grep --color=auto vncserver
+[root@iZ2850357ruZ ~]# vncserver 
+
+Warning: iZ2850357ruZ:1 is taken because of /tmp/.X1-lock
+Remove this file if there is no X server iZ2850357ruZ:1
+
+Warning: iZ2850357ruZ:2 is taken because of /tmp/.X2-lock
+Remove this file if there is no X server iZ2850357ruZ:2
+
+New 'iZ2850357ruZ:3 (root)' desktop is iZ2850357ruZ:3
+
+Starting applications specified in /root/.vnc/xstartup
+Log file is /root/.vnc/iZ2850357ruZ:3.log
+
+[root@iZ2850357ruZ ~]# cd /tmp/
+[root@iZ2850357ruZ tmp]# ls -la
+total 284
+drwxrwxrwt 16 root    root    20480 Nov 20 18:25 .
+drwxr-xr-x 20 root    root     4096 Nov 10 22:41 ..
+srwxrwxrwx  1 root    root        0 Nov 17 11:21 Aegis-<Guid(5A2C30A2-A87D-490A-9281-6765EDAD7CBA)>
+-rw-r--r--  1 root    root        0 Nov 17 11:19 anaconda.log
+drwx------  2 root    root     4096 Nov 18 18:05 .esd-0
+drwx------  2 dynroot dynroot  4096 Nov 17 11:27 .esd-1001
+drwxrwxrwt  2 root    root     4096 May  3  2016 .font-unix
+-rw-------  1 root    root     5308 Nov 14 19:57 gsf-thumbnailer-5VPXQY
+-rw-------  1 root    root     5308 Nov 14 19:57 gsf-thumbnailer-RD5YQY
+prw-------  1 root    root        0 Nov 17 11:22 hogsuspend
+drwxrwxrwt  2 root    root     4096 Nov 19 23:34 .ICE-unix
+-rw-r--r--  1 root    root        0 Nov 17 11:19 ifcfg.log
+-rw-r--r--  1 root    root        0 Nov 17 11:19 packaging.log
+drwxr-xr-x  3 root    root     4096 Nov 19 11:19 pear
+-rw-r--r--  1 root    root        0 Nov 17 11:19 program.log
+-rw-r--r--  1 root    root        0 Nov 17 11:19 sensitive-info.log
+-rw-------  1 php     php        14 Nov 20 16:53 sess_0de7edc5360645b4b0bcb8991cd248b2
+-rw-------  1 php     php        79 Nov 20 16:36 sess_2fdfe1962361dc0722cd6e7633c80ada
+-rw-------  1 php     php        77 Nov 20 18:07 sess_9409383a0258d615bcf0b412d310c231
+-rw-------  1 php     php        14 Nov 20 16:37 sess_de40f02f59d4e8d82b9d24ec5940f9a4
+drwx------  2 root    root     4096 Nov 20 18:25 ssh-fmeqSlLcedKI
+-rw-r--r--  1 root    root        0 Nov 17 11:19 storage.log
+drwx------  3 root    root     4096 Nov 17 11:22 systemd-private-06ee2aa5b0a94c9c9ec777bc258b9758-colord.service-U87ICV
+drwx------  3 root    root     4096 Nov 17 11:21 systemd-private-06ee2aa5b0a94c9c9ec777bc258b9758-cups.service-zcie9I
+drwx------  3 root    root     4096 Nov 17 11:21 systemd-private-06ee2aa5b0a94c9c9ec777bc258b9758-rtkit-daemon.service-bVDhHD
+drwxrwxrwt  2 root    root     4096 May  3  2016 .Test-unix
+drwx------  2 root    root     4096 Nov 18 18:06 tracker-extract-files.0
+drwx------  2 dynroot dynroot  4096 Nov 17 11:22 tracker-extract-files.1001
+drwxrwxrwt  2 root    root     4096 Nov 20 18:25 .X11-unix
+-r--r--r--  1 root    root       11 Nov 18 18:04 .X1-lock
+-r--r--r--  1 root    root       11 Nov 20 18:19 .X2-lock
+-r--r--r--  1 root    root       11 Nov 20 18:25 .X3-lock
+drwxrwxrwt  2 root    root     4096 May  3  2016 .XIM-unix
+-rw-------  1 root    root    49436 Nov 17 11:33 yum_save_tx.2016-11-17.11-33.A4oSxT.yumtx
+-rw-------  1 root    root    49436 Nov 18 09:26 yum_save_tx.2016-11-18.09-26.nDG8xN.yumtx
+-rw-------  1 root    root    49436 Nov 19 06:07 yum_save_tx.2016-11-19.06-07.WLAIRX.yumtx
+[root@iZ2850357ruZ tmp]# rm .X1-lock 
+rm: remove regular file ‘.X1-lock’? y
+[root@iZ2850357ruZ tmp]# rm .X2-lock 
+rm: remove regular file ‘.X2-lock’? y
+[root@iZ2850357ruZ tmp]# ls -la
+total 272
+drwxrwxrwt 15 root    root    20480 Nov 20 18:26 .
+drwxr-xr-x 20 root    root     4096 Nov 10 22:41 ..
+srwxrwxrwx  1 root    root        0 Nov 17 11:21 Aegis-<Guid(5A2C30A2-A87D-490A-9281-6765EDAD7CBA)>
+-rw-r--r--  1 root    root        0 Nov 17 11:19 anaconda.log
+drwx------  2 root    root     4096 Nov 18 18:05 .esd-0
+drwx------  2 dynroot dynroot  4096 Nov 17 11:27 .esd-1001
+drwxrwxrwt  2 root    root     4096 May  3  2016 .font-unix
+-rw-------  1 root    root     5308 Nov 14 19:57 gsf-thumbnailer-5VPXQY
+-rw-------  1 root    root     5308 Nov 14 19:57 gsf-thumbnailer-RD5YQY
+prw-------  1 root    root        0 Nov 17 11:22 hogsuspend
+drwxrwxrwt  2 root    root     4096 Nov 19 23:34 .ICE-unix
+-rw-r--r--  1 root    root        0 Nov 17 11:19 ifcfg.log
+-rw-r--r--  1 root    root        0 Nov 17 11:19 packaging.log
+drwxr-xr-x  3 root    root     4096 Nov 19 11:19 pear
+-rw-r--r--  1 root    root        0 Nov 17 11:19 program.log
+-rw-r--r--  1 root    root        0 Nov 17 11:19 sensitive-info.log
+-rw-------  1 php     php        14 Nov 20 16:53 sess_0de7edc5360645b4b0bcb8991cd248b2
+-rw-------  1 php     php        79 Nov 20 16:36 sess_2fdfe1962361dc0722cd6e7633c80ada
+-rw-------  1 php     php        77 Nov 20 18:07 sess_9409383a0258d615bcf0b412d310c231
+-rw-------  1 php     php        14 Nov 20 16:37 sess_de40f02f59d4e8d82b9d24ec5940f9a4
+-rw-r--r--  1 root    root        0 Nov 17 11:19 storage.log
+drwx------  3 root    root     4096 Nov 17 11:22 systemd-private-06ee2aa5b0a94c9c9ec777bc258b9758-colord.service-U87ICV
+drwx------  3 root    root     4096 Nov 17 11:21 systemd-private-06ee2aa5b0a94c9c9ec777bc258b9758-cups.service-zcie9I
+drwx------  3 root    root     4096 Nov 17 11:21 systemd-private-06ee2aa5b0a94c9c9ec777bc258b9758-rtkit-daemon.service-bVDhHD
+drwxrwxrwt  2 root    root     4096 May  3  2016 .Test-unix
+drwx------  2 root    root     4096 Nov 18 18:06 tracker-extract-files.0
+drwx------  2 dynroot dynroot  4096 Nov 17 11:22 tracker-extract-files.1001
+drwxrwxrwt  2 root    root     4096 Nov 20 18:25 .X11-unix
+-r--r--r--  1 root    root       11 Nov 20 18:25 .X3-lock
+drwxrwxrwt  2 root    root     4096 May  3  2016 .XIM-unix
+-rw-------  1 root    root    49436 Nov 17 11:33 yum_save_tx.2016-11-17.11-33.A4oSxT.yumtx
+-rw-------  1 root    root    49436 Nov 18 09:26 yum_save_tx.2016-11-18.09-26.nDG8xN.yumtx
+-rw-------  1 root    root    49436 Nov 19 06:07 yum_save_tx.2016-11-19.06-07.WLAIRX.yumtx
+[root@iZ2850357ruZ tmp]# /root/.vnc/xstartup
+xrdb: Can't open display ''
+xmodmap:  unable to open display ''
+/usr/bin/xsetroot:  unable to open display ''
+[root@iZ2850357ruZ tmp]# Error: no display specified
+
+[root@iZ2850357ruZ tmp]# ls -la
+total 272
+drwxrwxrwt 15 root    root    20480 Nov 20 18:27 .
+drwxr-xr-x 20 root    root     4096 Nov 10 22:41 ..
+srwxrwxrwx  1 root    root        0 Nov 17 11:21 Aegis-<Guid(5A2C30A2-A87D-490A-9281-6765EDAD7CBA)>
+-rw-r--r--  1 root    root        0 Nov 17 11:19 anaconda.log
+drwx------  2 root    root     4096 Nov 18 18:05 .esd-0
+drwx------  2 dynroot dynroot  4096 Nov 17 11:27 .esd-1001
+drwxrwxrwt  2 root    root     4096 May  3  2016 .font-unix
+-rw-------  1 root    root     5308 Nov 14 19:57 gsf-thumbnailer-5VPXQY
+-rw-------  1 root    root     5308 Nov 14 19:57 gsf-thumbnailer-RD5YQY
+prw-------  1 root    root        0 Nov 17 11:22 hogsuspend
+drwxrwxrwt  2 root    root     4096 Nov 19 23:34 .ICE-unix
+-rw-r--r--  1 root    root        0 Nov 17 11:19 ifcfg.log
+-rw-r--r--  1 root    root        0 Nov 17 11:19 packaging.log
+drwxr-xr-x  3 root    root     4096 Nov 19 11:19 pear
+-rw-r--r--  1 root    root        0 Nov 17 11:19 program.log
+-rw-r--r--  1 root    root        0 Nov 17 11:19 sensitive-info.log
+-rw-------  1 php     php        14 Nov 20 16:53 sess_0de7edc5360645b4b0bcb8991cd248b2
+-rw-------  1 php     php        79 Nov 20 16:36 sess_2fdfe1962361dc0722cd6e7633c80ada
+-rw-------  1 php     php        77 Nov 20 18:07 sess_9409383a0258d615bcf0b412d310c231
+-rw-------  1 php     php        14 Nov 20 16:37 sess_de40f02f59d4e8d82b9d24ec5940f9a4
+-rw-r--r--  1 root    root        0 Nov 17 11:19 storage.log
+drwx------  3 root    root     4096 Nov 17 11:22 systemd-private-06ee2aa5b0a94c9c9ec777bc258b9758-colord.service-U87ICV
+drwx------  3 root    root     4096 Nov 17 11:21 systemd-private-06ee2aa5b0a94c9c9ec777bc258b9758-cups.service-zcie9I
+drwx------  3 root    root     4096 Nov 17 11:21 systemd-private-06ee2aa5b0a94c9c9ec777bc258b9758-rtkit-daemon.service-bVDhHD
+drwxrwxrwt  2 root    root     4096 May  3  2016 .Test-unix
+drwx------  2 root    root     4096 Nov 18 18:06 tracker-extract-files.0
+drwx------  2 dynroot dynroot  4096 Nov 17 11:22 tracker-extract-files.1001
+drwxrwxrwt  2 root    root     4096 Nov 20 18:25 .X11-unix
+-r--r--r--  1 root    root       11 Nov 20 18:25 .X3-lock
+drwxrwxrwt  2 root    root     4096 May  3  2016 .XIM-unix
+-rw-------  1 root    root    49436 Nov 17 11:33 yum_save_tx.2016-11-17.11-33.A4oSxT.yumtx
+-rw-------  1 root    root    49436 Nov 18 09:26 yum_save_tx.2016-11-18.09-26.nDG8xN.yumtx
+-rw-------  1 root    root    49436 Nov 19 06:07 yum_save_tx.2016-11-19.06-07.WLAIRX.yumtx
+[root@iZ2850357ruZ tmp]# cd ../
+[root@iZ2850357ruZ /]# ps aux | grep vncserver
+root     22827  0.0  0.0 112648   964 pts/0    S+   18:28   0:00 grep --color=auto vncserver
+[root@iZ2850357ruZ /]# vncserver -list
+
+TigerVNC server sessions:
+
+X DISPLAY #	PROCESS ID
+:3		22433
+:1		4218
+:2		22119
+[root@iZ2850357ruZ /]# vncserver -h
+
+usage: vncserver [:<number>] [-name <desktop-name>] [-depth <depth>]
+                 [-geometry <width>x<height>]
+                 [-pixelformat rgbNNN|bgrNNN]
+                 [-fp <font-path>]
+                 [-cc <visual>]
+                 [-fg]
+                 [-autokill]
+                 <Xvnc-options>...
+
+       vncserver -kill <X-display>
+
+       vncserver -list
+
+[root@iZ2850357ruZ /]# vncserver -kill 1
+
+Can't tell if 1 is on iZ2850357ruZ
+Use -kill :<number> instead
+
+[root@iZ2850357ruZ /]# vncserver -kill <1>
+-bash: syntax error near unexpected token `1'
+[root@iZ2850357ruZ /]# vncserver -kill <X-1>
+-bash: syntax error near unexpected token `newline'
+[root@iZ2850357ruZ /]# vncserver -kill <1-display>
+-bash: syntax error near unexpected token `newline'
+[root@iZ2850357ruZ /]# vncserver -list
+
+TigerVNC server sessions:
+
+X DISPLAY #	PROCESS ID
+:3		22433
+:1		4218
+:2		22119
+[root@iZ2850357ruZ /]# vncserver -kill 1
+
+Can't tell if 1 is on iZ2850357ruZ
+Use -kill :<number> instead
+
+[root@iZ2850357ruZ /]# vncserver -kill 2
+
+Can't tell if 2 is on iZ2850357ruZ
+Use -kill :<number> instead
+
+[root@iZ2850357ruZ /]# vncserver -kill 3
+
+Can't tell if 3 is on iZ2850357ruZ
+Use -kill :<number> instead
+
+[root@iZ2850357ruZ /]# vncserver -kill :3
+Killing Xvnc process ID 22433
+[root@iZ2850357ruZ /]# vncserver -kill :1
+Killing Xvnc process ID 4218
+Xvnc process ID 4218 already killed
+Xvnc did not appear to shut down cleanly. Removing /tmp/.X11-unix/X1
+[root@iZ2850357ruZ /]# vncserver -kill :2
+Killing Xvnc process ID 22119
+Xvnc process ID 22119 already killed
+Xvnc did not appear to shut down cleanly. Removing /tmp/.X11-unix/X2
+[root@iZ2850357ruZ /]# vncserver -list
+
+TigerVNC server sessions:
+
+X DISPLAY #	PROCESS ID
+[root@iZ2850357ruZ /]# vncserver 
+
+New 'iZ2850357ruZ:1 (root)' desktop is iZ2850357ruZ:1
+
+Starting applications specified in /root/.vnc/xstartup
+Log file is /root/.vnc/iZ2850357ruZ:1.log
+
+[root@iZ2850357ruZ /]# 

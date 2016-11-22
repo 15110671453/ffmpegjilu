@@ -1,0 +1,92 @@
+启动新规则 php 7.0.12 php-fpm 
+------------------------------------------
+由于mac盒子 在brew安装7.0.12 之前 系统预装的php 5.6 而且之前的php 5.6 也有php-fpm 因此我们要使用自己的就需要将 我们的命令 在系统环境变量中设置一次 来解决 运行php-fpm时 发现运行的不是我们配置的php-fpm的配置文件所安排的环境 而一直是系统的默认配置环境的php-fpm
+系统的php-fpm 在/usr/sbin 下
+我们自己的在 /usr/local/sbin 下 对应的配置文件在 /usr/local/etc下 我们的yii2框架做学习准备
+-----------------------------------------
+bogon:etc admindyn$ cd php/
+bogon:php admindyn$ ls -la
+total 0
+drwxr-xr-x   3 admindyn  admin  102 11 16 14:05 .
+drwxrwxr-x  10 admindyn  admin  340 11 16 15:19 ..
+drwxr-xr-x   6 admindyn  admin  204 11 22 15:44 7.0
+bogon:php admindyn$ cd 7.0/
+bogon:7.0 admindyn$ ls -la
+total 176
+drwxr-xr-x  6 admindyn  admin    204 11 22 15:44 .
+drwxr-xr-x  3 admindyn  admin    102 11 16 14:05 ..
+-rw-r--r--  1 admindyn  admin   4504 11 22 15:33 php-fpm.conf
+-rw-r--r--  1 admindyn  admin   4492 11 16 14:05 php-fpm.conf.default
+drwxr-xr-x  3 admindyn  admin    102 11 16 14:05 php-fpm.d
+-rw-r--r--  1 admindyn  admin  69692 11 16 14:05 php.ini
+bogon:7.0 admindyn$ cd php-fpm.d
+bogon:php-fpm.d admindyn$ ls -la
+total 40
+drwxr-xr-x  3 admindyn  admin    102 11 16 14:05 .
+drwxr-xr-x  6 admindyn  admin    204 11 22 15:44 ..
+-rw-r--r--  1 admindyn  admin  18564 11 16 14:05 www.conf
+bogon:php-fpm.d admindyn$ vi www.conf 
+bogon:php-fpm.d admindyn$ php-fpm -c /usr/local/php/etc/php.ini -y /usr/local/php/etc/php-fpm.conf -t
+[22-Nov-2016 15:53:36] ERROR: failed to open configuration file '/usr/local/php/etc/php-fpm.conf': No such file or directory (2)
+[22-Nov-2016 15:53:36] ERROR: failed to load configuration file '/usr/local/php/etc/php-fpm.conf'
+[22-Nov-2016 15:53:36] ERROR: FPM initialization failed
+bogon:php-fpm.d admindyn$ cd /usr/
+bogon:usr admindyn$ cd local/
+bogon:local admindyn$ ls -la
+total 8
+drwxr-xr-x   16 root      wheel   544 11 22 13:53 .
+drwxr-xr-x@  11 root      wheel   374 11 16 11:53 ..
+drwxrwxr-x   31 admindyn  admin  1054 11 18 11:53 Cellar
+drwxrwxr-x    2 admindyn  admin    68 11 15 20:17 Frameworks
+drwxrwxr-x   16 admindyn  admin   544 11 16 12:49 Homebrew
+drwxrwxr-x  188 admindyn  admin  6392 11 22 14:03 bin
+drwxrwxr-x   10 admindyn  admin   340 11 16 15:19 etc
+drwxrwxr-x   79 admindyn  admin  2686 11 18 11:53 include
+drwxrwxr-x  144 admindyn  admin  4896 11 18 11:53 lib
+lrwxr-xr-x    1 root      wheel    28 11 15 15:46 mysql -> mysql-5.7.16-osx10.11-x86_64
+drwxr-xr-x   12 root      wheel   408 11 15 15:47 mysql-5.7.16-osx10.11-x86_64
+drwxrwxr-x   31 admindyn  admin  1054 11 18 11:53 opt
+drwxrwxr-x    7 admindyn  admin   238 11 16 14:05 sbin
+drwxrwxr-x   18 admindyn  admin   612 11 16 17:06 share
+drwxr-xr-x    4 root      wheel   136 11 22 14:00 spark
+drwxrwxr-x    7 admindyn  admin   238 11 16 14:07 var
+bogon:local admindyn$ cd etc/
+bogon:etc admindyn$ sl -la
+-bash: sl: command not found
+bogon:etc admindyn$ ls -la
+total 16
+drwxrwxr-x  10 admindyn  admin  340 11 16 15:19 .
+drwxr-xr-x  16 root      wheel  544 11 22 13:53 ..
+drwxr-xr-x   3 admindyn  admin  102 11 16 12:50 bash_completion.d
+drwxr-xr-x   8 admindyn  admin  272 11 16 15:19 mono
+drwxr-xr-x  18 admindyn  admin  612 11 16 14:07 nginx
+lrwxr-xr-x   1 admindyn  admin   37 11 16 13:32 odbc.ini -> ../Cellar/unixodbc/2.3.4/etc/odbc.ini
+lrwxr-xr-x   1 admindyn  admin   41 11 16 13:32 odbcinst.ini -> ../Cellar/unixodbc/2.3.4/etc/odbcinst.ini
+drwxr-xr-x   7 admindyn  admin  238 11 16 13:18 openssl
+drwxr-xr-x   8 admindyn  admin  272 11 16 14:07 openssl@1.1
+drwxr-xr-x   3 admindyn  admin  102 11 16 14:05 php
+bogon:etc admindyn$ cd php/
+bogon:php admindyn$ ls -la
+total 0
+drwxr-xr-x   3 admindyn  admin  102 11 16 14:05 .
+drwxrwxr-x  10 admindyn  admin  340 11 16 15:19 ..
+drwxr-xr-x   6 admindyn  admin  204 11 22 15:44 7.0
+bogon:php admindyn$ cd 7.0/
+bogon:7.0 admindyn$ ls -la
+total 176
+drwxr-xr-x  6 admindyn  admin    204 11 22 15:44 .
+drwxr-xr-x  3 admindyn  admin    102 11 16 14:05 ..
+-rw-r--r--  1 admindyn  admin   4504 11 22 15:33 php-fpm.conf
+-rw-r--r--  1 admindyn  admin   4492 11 16 14:05 php-fpm.conf.default
+drwxr-xr-x  3 admindyn  admin    102 11 22 15:53 php-fpm.d
+-rw-r--r--  1 admindyn  admin  69692 11 16 14:05 php.ini
+bogon:7.0 admindyn$ pwd
+/usr/local/etc/php/7.0
+bogon:7.0 admindyn$ php-fpm -c /usr/local/etc/php/7.0/php.ini -y /usr/local/etc/php/7.0/php-fpm.conf -t
+[22-Nov-2016 15:55:19] NOTICE: configuration file /usr/local/etc/php/7.0/php-fpm.conf test is successful
+
+bogon:7.0 admindyn$ php-fpm -c /usr/local/etc/php/7.0/php.ini -y /usr/local/etc/php/7.0/php-fpm.conf 
+[22-Nov-2016 15:55:27] NOTICE: [pool www] 'user' directive is ignored when FPM is not running as root
+[22-Nov-2016 15:55:27] NOTICE: [pool www] 'group' directive is ignored when FPM is not running as root
+[22-Nov-2016 15:55:27] NOTICE: fpm is running, pid 5507
+[22-Nov-2016 15:55:27] NOTICE: ready to handle connections

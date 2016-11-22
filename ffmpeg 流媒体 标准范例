@@ -1,0 +1,131 @@
+ffmpeg 流媒体 标准范例
+work_processes 4;
+events{
+    work_connections 1024;
+}
+
+http{
+    include mime.types;
+    default_type application/octet-stream;
+    sendfile on;
+    keepalive_timeout 65;
+    server{
+        listen 80;
+        server_name localhost;
+        location /{
+            root html;
+            insex index.html index.htm;
+            }
+        location /hls{
+            alias /tmp/app;
+            }
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html{
+            root html;
+            }
+        }
+    }
+
+rtmp{
+    server{
+        listen 1935;
+        chunk_size 4000;
+        application liaortmp{
+            live on;
+            }
+        application hls{
+            live on;
+            hls on;
+            hls_path /tmp/app;
+            hls_frament 15s;
+            }
+        }
+    }
+
+
+
+
+配置的解读
+
+
+
+workprocesses和work_connections
+
+
+
+
+work_processes: 启动进程,通常设置成cpu相等的数目。 
+
+work_connections: 单个后台worker process进程的最大并发链接数
+
+
+
+http server的配置
+
+
+
+
+sendndfile: 指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，对于普通应用，必须设为 on,如果用来进行下载等应用磁盘IO重负载应用，可设置为 off，以平衡磁盘与网络I/O处理速度，降低系统的uptime.
+
+keepalive_timeout : 连接超时时间
+
+server 
+
+listen： 配置监听哪个端口
+
+server_name： 定义使用xxx访问，即IP对应的域名
+
+loaction /: 默认请求
+
+error_page以及紧接着的location : 定义错误提示页面
+
+location /hls ：定义请求hls，我在此处的声明为，如果请求hls流要在播放地址后面加上m3u8，hls的切片从/tmp/app得来，app为自己定义的
+
+
+rtmp推流服务器的配置 
+
+
+
+
+listen : 监听端口 
+
+application liaortmp : 此处配置rtmp普通推流请求 
+
+application liaohls : 此处配置rtmp推流请求，通过hls方式播放，切片放在/tmp/app，此处正好与上面http配置的地方对应，app在此处写什么，在http处也写什么 
+
+live on ：切换直播模式，即一对多广播 
+
+hls on ： 在 application 切换 HLS 
+
+hls_path : 切片存放地址 
+
+hls_fragment : 切片大小，设置 HLS 分段长度，默认为 5 秒钟
+
+
+
+
+
+至此nginx的简单配置已经完成，/usr/local/conf/nginx.conf里面储存的就是上面的配置。
+
+
+
+举个列子（关于app） 
+
+
+
+
+rtmp推流和rtmp播放 
+
+推流地址： rtmp://x.x.x.x:1935/liaortmp/liao 
+
+播放地址： rtmp://x.x.x.x:1935/liaortmp/liao 
+
+rtmp推流和hls直播 
+
+推流地址 ： rtmp://x.x.x.x:1935/liaohls/liao 
+
+播放地址 ： rtmp://x.x.x.x:80/hls/liao
+
+
+
+liao是可以替换的任意的。

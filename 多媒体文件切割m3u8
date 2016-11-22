@@ -1,0 +1,146 @@
+   多媒体文件切割m3u8 编码规范
+
+    1. 64Kbps音频编码
+          根据苹果有关HLS音频规定，不能使用音频流峰值超过64kbps的流，因此目前使用音频流为56kbps
+          命令如下：
+         ffmpeg -i The.Interview.2014.BluRay.720p.x264.AAC-PHD.mp4 -vn     \
+         -b:a 56000     \
+         -hls_time 10     \
+         -hls_list_size 0     \
+         -hls_allow_cache 1     \
+         -hls_base_url http://127.0.0.1:8080/audios/    \
+         -hls_segment_filename /Users/kuoxin/Movies/56K/‘TI2014_56k_%05d.ts‘     \
+         /Users/kuoxin/Movies/56K/56k_aac.m3u8
+     
+     2. 移动网络264Kbps视频编码
+          帧率：          12
+          尺寸：          416 x 234
+          码流：          264Kbps
+          视频：          200Kbps
+          音频：          56Kbps
+          音频采样：   48KHz
+          MP4 描述：  baseling3.0
+          时长：          10s
+ 
+          命令如下：
+          $ ffmpeg -i The.Interview.2014.BluRay.720p.x264.AAC-PHD.mp4   \
+          -c:v libx264  \
+          -r 12      \ 
+          -s 416X234       \
+          -b:v 200k       \
+          -profile:v baseline      \
+          -b:a 56k      \
+          -hls_time 10      \
+          -hls_list_size 0      \
+          -hls_allow_cache 1      \
+          -hls_base_url http://127.0.0.1:8080/videos/264k/       \
+          -hls_segment_filename /Users/kuoxin/Movies/264k/‘TI2014_264k_%05d.ts’       \
+          /Users/kuoxin/Movies/264K/264k_mp4.m3u8 
+  
+3. 移动网络464Kbps视频编码
+          帧率：          15
+          尺寸：          480 x 270
+          码流：          464Kbps
+          视频：          400Kbps
+          音频：          56Kbps
+          音频采样：   48KHz
+          MP4 描述：  baseline
+          时长：          10s
+     $ ffmpeg -i The.Interview.2014.BluRay.720p.x264.AAC-PHD.mp4        \
+     -c:v libx264      \
+     -r 15       \
+     -s 480X270       \
+     -b:v 400k       \
+     -profile:v baseline      \
+     -b:a 56k      \
+     -hls_time 10      \
+     -hls_list_size 0      \
+     -hls_allow_cache 1      \
+     -hls_base_url http://127.0.0.1:8080/videos/464k/       \
+     -hls_segment_filename /Users/kuoxin/Movies/464k/‘TI2014_464k_%05d.ts’      \
+      /Users/kuoxin/Movies/464K/464k_mp4.m3u8 
+  
+4. WiFi/CELL 664Kbps视频编码
+          帧率：          视频当前帧数
+          尺寸：          640 x 360
+          码流：          664Kbps
+          视频：          600Kbps
+          音频：          56Kbps
+          音频采样：   48KHz
+          MP4 描述：  baseline
+          时长：          10s
+     $ ffmpeg -i The.Interview.2014.BluRay.720p.x264.AAC-PHD.mp4        \
+     -c:v libx264      \
+     -s 640X360       \
+     -b:v 400k       \
+     -profile:v baseline      \
+     -b:a 56k      \
+     -hls_time 10      \
+     -hls_list_size 0      \
+     -hls_allow_cache 1      \
+     -hls_base_url http://127.0.0.1:8080/videos/664k/       \
+     -hls_segment_filename /Users/kuoxin/Movies/664k/‘TI2014_464k_%05d.ts’      \
+      /Users/kuoxin/Movies/664K/664k_mp4.m3u8 
+  
+4. WiFi 1294Kbps视频编码
+          帧率：          视频当前帧数
+          尺寸：          640 x 360
+          码流：          1296Kbps
+          视频：          1200Kbps
+          音频：          96Kbps
+          音频采样：   48KHz
+          MP4 描述：  baseline
+          时长：          10s
+     $ ffmpeg -i The.Interview.2014.BluRay.720p.x264.AAC-PHD.mp4        \
+     -c:v libx264      \
+     -s 640X360       \
+     -b:v 1200k       \
+     -profile:v baseline      \
+     -b:a 96k      \
+     -hls_time 10      \
+     -hls_list_size 0      \
+     -hls_allow_cache 1      \
+     -hls_base_url http://127.0.0.1:8080/videos/1296k/       \
+     -hls_segment_filename /Users/kuoxin/Movies/1296k/‘TI2014_1296k_%05d.ts’      \
+      /Users/kuoxin/Movies/1296K/1296k_mp4.m3u8 
+ 
+ 
+5. WiFi 3596Kbps视频编码
+          帧率：          视频当前帧数
+          尺寸：          960 x 540
+          码流：          3596Kbps (当前最高码流只有：1780Kbps)
+          视频：          3500Kbps(当前最高码流只有：1648Kbps)
+          音频：          96Kbps
+          音频采样：   48KHz
+          MP4 描述：  main
+          时长：          10s
+     $ ffmpeg -i The.Interview.2014.BluRay.720p.x264.AAC-PHD.mp4        \
+     -c:v libx264      \
+     -s 960X540       \
+     -b:a 128k          \
+     -hls_time 10      \
+     -hls_list_size 0      \
+     -hls_allow_cache 1      \
+     -hls_base_url http://127.0.0.1:8080/videos/3596k/       \
+     -hls_segment_filename /Users/kuoxin/Movies/3596k/‘TI2014_3596k_%05d.ts’      \
+      /Users/kuoxin/Movies/3596K/3596k_mp4.m3u8 
+ 
+6. WiFi 5128Kbps视频编码
+          帧率：          视频当前帧数
+          尺寸：          1280 x 720
+          码流：          5128k (当前最高码流只有：1780Kbps)
+          视频：          5000Kbps(当前最高码流只有：1648Kbps)
+          音频：          128Kbps
+          音频采样：   48KHz
+          MP4 描述：  main
+          时长：          10s
+    
+  $ ffmpeg -i The.Interview.2014.BluRay.720p.x264.AAC-PHD.mp4        \
+     -c:v libx264      \
+     -b:a 128k          \
+     -hls_time 10      \
+     -hls_list_size 0      \
+     -hls_allow_cache 1      \
+     -hls_base_url http://127.0.0.1:8080/videos/5128k/       \
+     -hls_segment_filename /Users/fengkun/Movies/kuoxin/‘TI2014_5128k_%05d.ts’      \
+      /Users/kuoxin/Movies/5128K/5128k_mp4.m3u8 

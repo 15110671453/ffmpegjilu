@@ -36,6 +36,27 @@ DBGp proxy 配置 HOST localhost IDEKEY PHPSTORM 端口号 9999 与服务器一�
 再运行debug 开始步步调试
 
 macgdbp
+-------------------补充 
+补充 我们在PHPstorm中的调试 还有右键直接在浏览器打开 默认都是在 访问
+phpstorm的内建服务器 而不是我们自己搭建的nginx的服务器调用的php服务
+
+但是由于用的同一个php解释器 因此 在通过php-fpm（已经为了管理和监听php占用9000端口）启动php服务后，
+ 我们调试时 都是相同配置的php服务在为我们的代码执行服务，因此相同的一份
+ php.ini文件就管理了xdebug的配置 影响着php-storm的xdebug能否监听调试成功
+ ，也影响着macgdbp能否监听调试成功；而这两者要想成功需要各自配置自己监听xdebug
+ 服务的端口号与服务器一致 都是9999；
+
+ phpstorm中
+build - debug - deployment下
+bebugger 配置的端口号就是 就是php-storm的内建built-in服务器的端口号
+在php-storm中右键 open in browser 打开也是访问内建服务器该端口号 在进行调试；
+
+deployment 配置 一键部署到 我们的 自己搭建的服务器的 服务目录下
+
+language & frameworks
+php 配置 php-storm 该工程要使用那个php解释器版本 和解释器所在路径
+
+server 配置的 服务器  暂时 用不到
 
 
 

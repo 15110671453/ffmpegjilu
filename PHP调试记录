@@ -56,7 +56,10 @@ deployment 配置 一键部署到 我们的 自己搭建的服务器的 服务�
 language & frameworks
 php 配置 php-storm 该工程要使用那个php解释器版本 和解释器所在路径
 
-server 配置的 服务器  暂时 用不到
+server 配置的 服务器  暂时 用不到 发现 这里 主要是 添加 自己的 个人服务器记录（非php-strom内建服务器）可以添加多条 你有几个服务器都可以
+添加进来 这样的话 当我们要run应用时 可以在run 之前 edit configuration 
+然后 选择自己真正要run的环境 ，但是 它 影响不了 在项目中 右键 open in browser
+他永远是走的php-strom的内建服务器
 
 
 

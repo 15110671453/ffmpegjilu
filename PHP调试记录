@@ -61,7 +61,16 @@ server 配置的 服务器  暂时 用不到 发现 这里 主要是 添加 自�
 然后 选择自己真正要run的环境 ，但是 它 影响不了 在项目中 右键 open in browser
 他永远是走的php-strom的内建服务器
 
-
+/////////
+补充 
+在 edit congiguration 时 可以 选择 phpwebapplication 选择server 时 这时server的 列表是 language & framwork 下的 这里的 一般都配置 自己
+搭建的服务器环境 这里我使用nginx的 但是自己搭建的 有时 因为自己的失误
+配置有问题 跑不起来 
+所以edit configuration 时 可以选择php-built in web server 这里可以重新
+搭建一个服务器 很方便 是php-storm内建的服务器，虽然刚创建工程时 已经默认了内建服务器
+并且端口号63342 ，但是很明显我们这里并不知道服务器根目录 是什么；
+这里edit 我们就可以很方便 利用php-storm内建的服务器 很快配置一个新的服务器环境 进行调试
+很方便 提高开发效率 降低自己搭建服务器出错的干扰
 
 
 

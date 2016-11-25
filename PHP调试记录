@@ -16,7 +16,7 @@ nginx的web服务的根目录 检查 php-fpm 检查其配置文件php-fpm.d文�
 
 客户端phpstorm的配置
 
-在prefrence build deployment下配置 一下 对应的servre环境 可能会影响到 built-in server
+在prefrence -build -deployment下配置 一下 对应的servre环境 可能会影响到 built-in server 这里每次在代码中直接 open in browser 跑的就是这个配置的环境
 
 在language php debug 下配置 端口号 与服务器一致 9999
 DBGp proxy 配置 HOST localhost IDEKEY PHPSTORM 端口号 9999 与服务器一致

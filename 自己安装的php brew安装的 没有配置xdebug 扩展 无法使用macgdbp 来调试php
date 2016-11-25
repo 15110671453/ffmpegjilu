@@ -1,0 +1,853 @@
+自己安装的php brew安装的 没有配置xdebug 扩展 无法使用macgdbp 来调试php
+
+解决 源码 获取xdebug 
+然后 在xdebug源码目录下 并使用 homebrew安装的php中的phpize命令 然后configure 并编译 安装
+成功 
+还要在 PHP的ini文件中配置xdebug 模块
+启用
+
+
+------------------------------------------
+bogon:7.0 admindyn$ cd /usr/local/
+bogon:local admindyn$ ls -la
+total 8
+drwxr-xr-x   17 root      wheel   578 11 22 17:03 .
+drwxr-xr-x@  11 root      wheel   374 11 16 11:53 ..
+drwxrwxr-x   31 admindyn  admin  1054 11 18 11:53 Cellar
+drwxrwxr-x    2 admindyn  admin    68 11 15 20:17 Frameworks
+drwxrwxr-x   16 admindyn  admin   544 11 16 12:49 Homebrew
+drwxrwxr-x  188 admindyn  admin  6392 11 22 14:03 bin
+drwxrwxr-x   10 admindyn  admin   340 11 16 15:19 etc
+drwxrwxr-x   79 admindyn  admin  2686 11 18 11:53 include
+drwxrwxr-x  144 admindyn  admin  4896 11 18 11:53 lib
+lrwxr-xr-x    1 root      wheel    28 11 15 15:46 mysql -> mysql-5.7.16-osx10.11-x86_64
+drwxr-xr-x   12 root      wheel   408 11 15 15:47 mysql-5.7.16-osx10.11-x86_64
+drwxrwxr-x   31 admindyn  admin  1054 11 18 11:53 opt
+drwxrwxr-x    7 admindyn  admin   238 11 16 14:05 sbin
+drwxrwxr-x   18 admindyn  admin   612 11 16 17:06 share
+drwxrwxrwx   24 root      wheel   816 11 22 17:36 sitesfile
+drwxr-xr-x    4 root      wheel   136 11 22 14:00 spark
+drwxrwxr-x    7 admindyn  admin   238 11 22 17:08 var
+bogon:local admindyn$ cd Cellar/
+bogon:Cellar admindyn$ cd php70/
+bogon:php70 admindyn$ cd 7.0.12_5/
+bogon:7.0.12_5 admindyn$ ls -la
+total 192
+drwxr-xr-x  15 admindyn  admin    510 11 22 15:47 .
+drwxr-xr-x   3 admindyn  admin    102 11 16 14:04 ..
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 .brew
+-rw-r--r--   1 admindyn  admin   1270 11 16 14:05 INSTALL_RECEIPT.json
+-rw-r--r--   1 admindyn  admin   3218 10 13 22:04 LICENSE
+-rw-r--r--   1 admindyn  admin  81105 10 13 22:04 NEWS
+-rw-r--r--   1 admindyn  admin   1473 10 13 22:04 README.md
+drwxr-xr-x   8 admindyn  admin    272 11 16 14:05 bin
+-rw-r--r--   1 admindyn  admin    752 11 16 14:05 homebrew.mxcl.php70.plist
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 include
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 lib
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 php
+drwxr-xr-x   4 admindyn  admin    136 11 16 14:05 sbin
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 share
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 var
+bogon:7.0.12_5 admindyn$ cd sbin/
+bogon:sbin admindyn$ ls -la
+total 22800
+drwxr-xr-x   4 admindyn  admin       136 11 16 14:05 .
+drwxr-xr-x  15 admindyn  admin       510 11 22 15:47 ..
+-rwxr-xr-x   1 admindyn  admin  11667048 11 16 14:05 php-fpm
+-rwxr-xr-x   1 admindyn  admin      2429 11 16 14:05 php70-fpm
+bogon:sbin admindyn$ cd ../
+bogon:7.0.12_5 admindyn$ cd bin/
+bogon:bin admindyn$ ls -la
+total 45440
+drwxr-xr-x   8 admindyn  admin       272 11 16 14:05 .
+drwxr-xr-x  15 admindyn  admin       510 11 22 15:47 ..
+lrwxr-xr-x   1 admindyn  admin         9 10 13 22:04 phar -> phar.phar
+-rwxr-xr-x   1 admindyn  admin     14851 11 16 14:05 phar.phar
+-rwxr-xr-x   1 admindyn  admin  11639220 11 16 14:05 php
+-rwxr-xr-x   1 admindyn  admin  11584204 11 16 14:05 php-cgi
+-rwxr-xr-x   1 admindyn  admin      4480 11 16 14:05 php-config
+-rwxr-xr-x   1 admindyn  admin      4583 11 16 14:05 phpize
+bogon:bin admindyn$ pwd
+/usr/local/Cellar/php70/7.0.12_5/bin
+bogon:bin admindyn$ cd ~/Desktop/xdebug-2.5.0rc1/
+bogon:xdebug-2.5.0rc1 admindyn$ ls -la
+total 200
+drwx------@  5 admindyn  staff    170 11 23 09:58 .
+drwx------+ 12 admindyn  staff    408 11 23 09:56 ..
+-rw-r--r--@  1 admindyn  staff   6148 11 23 09:58 .DS_Store
+-rw-r--r--@  1 admindyn  staff  93146 11 13 00:36 package.xml
+drwxr-xr-x@ 58 admindyn  staff   1972 11 23 09:56 xdebug-2.5.0RC1
+bogon:xdebug-2.5.0rc1 admindyn$ cd xdebug-2.5.0RC1/
+bogon:xdebug-2.5.0RC1 admindyn$ ls -la
+total 1384
+drwxr-xr-x@ 58 admindyn  staff   1972 11 23 09:56 .
+drwx------@  5 admindyn  staff    170 11 23 09:58 ..
+-rw-r--r--@  1 admindyn  staff     53 11 13 00:36 CREDITS
+-rw-r--r--@  1 admindyn  staff   3012 11 13 00:36 LICENSE
+-rw-r--r--@  1 admindyn  staff   2047 11 13 00:36 Makefile.frag
+-rw-r--r--@  1 admindyn  staff    442 11 13 00:36 Makefile.in
+-rw-r--r--@  1 admindyn  staff   1815 11 13 00:36 README.rst
+-rw-r--r--@  1 admindyn  staff   1646 11 13 00:36 config.m4
+-rw-r--r--@  1 admindyn  staff    621 11 13 00:36 config.w32
+drwxr-xr-x@  4 admindyn  staff    136 11 23 09:56 contrib
+drwxr-xr-x@ 23 admindyn  staff    782 11 23 09:56 debugclient
+-rw-r--r--@  1 admindyn  staff   9289 11 13 00:36 php_xdebug.h
+-rw-r--r--@  1 admindyn  staff  20736 11 13 00:36 usefulstuff.c
+-rw-r--r--@  1 admindyn  staff   6158 11 13 00:36 usefulstuff.h
+-rw-r--r--@  1 admindyn  staff  93745 11 13 00:36 xdebug.c
+-rw-r--r--@  1 admindyn  staff  14159 11 13 00:36 xdebug_branch_info.c
+-rw-r--r--@  1 admindyn  staff   4338 11 13 00:36 xdebug_branch_info.h
+-rw-r--r--@  1 admindyn  staff  40102 11 13 00:36 xdebug_code_coverage.c
+-rw-r--r--@  1 admindyn  staff   4629 11 13 00:36 xdebug_code_coverage.h
+-rw-r--r--@  1 admindyn  staff   8133 11 13 00:36 xdebug_com.c
+-rw-r--r--@  1 admindyn  staff   2264 11 13 00:36 xdebug_com.h
+-rw-r--r--@  1 admindyn  staff   8756 11 13 00:36 xdebug_compat.c
+-rw-r--r--@  1 admindyn  staff   4700 11 13 00:36 xdebug_compat.h
+-rw-r--r--@  1 admindyn  staff  76249 11 13 00:36 xdebug_handler_dbgp.c
+-rw-r--r--@  1 admindyn  staff   4389 11 13 00:36 xdebug_handler_dbgp.h
+-rw-r--r--@  1 admindyn  staff   2412 11 13 00:36 xdebug_handlers.c
+-rw-r--r--@  1 admindyn  staff   4756 11 13 00:36 xdebug_handlers.h
+-rw-r--r--@  1 admindyn  staff   7729 11 13 00:36 xdebug_hash.c
+-rw-r--r--@  1 admindyn  staff   2975 11 13 00:36 xdebug_hash.h
+-rw-r--r--@  1 admindyn  staff   3843 11 13 00:36 xdebug_llist.c
+-rw-r--r--@  1 admindyn  staff   2541 11 13 00:36 xdebug_llist.h
+-rw-r--r--@  1 admindyn  staff   1599 11 13 00:36 xdebug_mm.h
+-rw-r--r--@  1 admindyn  staff   5054 11 13 00:36 xdebug_monitor.c
+-rw-r--r--@  1 admindyn  staff   1515 11 13 00:36 xdebug_monitor.h
+-rw-r--r--@  1 admindyn  staff   2583 11 13 00:36 xdebug_private.c
+-rw-r--r--@  1 admindyn  staff   7489 11 13 00:36 xdebug_private.h
+-rw-r--r--@  1 admindyn  staff  12654 11 13 00:36 xdebug_profiler.c
+-rw-r--r--@  1 admindyn  staff   2012 11 13 00:36 xdebug_profiler.h
+-rw-r--r--@  1 admindyn  staff   2168 11 13 00:36 xdebug_set.c
+-rw-r--r--@  1 admindyn  staff   1736 11 13 00:36 xdebug_set.h
+-rw-r--r--@  1 admindyn  staff  56739 11 13 00:36 xdebug_stack.c
+-rw-r--r--@  1 admindyn  staff   1995 11 13 00:36 xdebug_stack.h
+-rw-r--r--@  1 admindyn  staff   3099 11 13 00:36 xdebug_str.c
+-rw-r--r--@  1 admindyn  staff   1918 11 13 00:36 xdebug_str.h
+-rw-r--r--@  1 admindyn  staff   7240 11 13 00:36 xdebug_superglobals.c
+-rw-r--r--@  1 admindyn  staff   2018 11 13 00:36 xdebug_superglobals.h
+-rw-r--r--@  1 admindyn  staff   8370 11 13 00:36 xdebug_trace_computerized.c
+-rw-r--r--@  1 admindyn  staff   1453 11 13 00:36 xdebug_trace_computerized.h
+-rw-r--r--@  1 admindyn  staff   4804 11 13 00:36 xdebug_trace_html.c
+-rw-r--r--@  1 admindyn  staff   1413 11 13 00:36 xdebug_trace_html.h
+-rw-r--r--@  1 admindyn  staff  10775 11 13 00:36 xdebug_trace_textual.c
+-rw-r--r--@  1 admindyn  staff   1428 11 13 00:36 xdebug_trace_textual.h
+-rw-r--r--@  1 admindyn  staff   5356 11 13 00:36 xdebug_tracing.c
+-rw-r--r--@  1 admindyn  staff   1890 11 13 00:36 xdebug_tracing.h
+-rw-r--r--@  1 admindyn  staff  94663 11 13 00:36 xdebug_var.c
+-rw-r--r--@  1 admindyn  staff   5088 11 13 00:36 xdebug_var.h
+-rw-r--r--@  1 admindyn  staff   5656 11 13 00:36 xdebug_xml.c
+-rw-r--r--@  1 admindyn  staff   3111 11 13 00:36 xdebug_xml.h
+bogon:xdebug-2.5.0RC1 admindyn$ /usr/local/Cellar/php70/7.0.12_5/bin/phpize 
+Configuring for:
+PHP Api Version:         20151012
+Zend Module Api No:      20151012
+Zend Extension Api No:   320151012
+bogon:xdebug-2.5.0RC1 admindyn$ ./configure --enable-xdebug
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for cc... cc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether cc accepts -g... yes
+checking for cc option to accept ISO C89... none needed
+checking how to run the C preprocessor... cc -E
+checking for icc... no
+checking for suncc... no
+checking whether cc understands -c and -o together... yes
+checking for system library directory... lib
+checking if compiler supports -R... no
+checking if compiler supports -Wl,-rpath,... yes
+checking build system type... x86_64-apple-darwin16.1.0
+checking host system type... x86_64-apple-darwin16.1.0
+checking target system type... x86_64-apple-darwin16.1.0
+checking for PHP prefix... /usr/local/Cellar/php70/7.0.12_5
+checking for PHP includes... -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib
+checking for PHP extension directory... /usr/local/Cellar/php70/7.0.12_5/lib/php/extensions/no-debug-non-zts-20151012
+checking for PHP installed headers prefix... /usr/local/Cellar/php70/7.0.12_5/include/php
+checking if debug is enabled... no
+checking if zts is enabled... no
+checking for re2c... no
+configure: WARNING: You will need re2c 0.13.4 or later if you want to regenerate PHP parsers.
+checking for gawk... no
+checking for nawk... no
+checking for awk... awk
+checking if awk is broken... no
+checking whether to enable Xdebug support... yes, shared
+checking Check for supported PHP versions... supported (7.0.12)
+checking for gettimeofday... yes
+checking for cos in -lm... yes
+checking for ld used by cc... /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+checking if the linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld... no
+checking for /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld option to reload object files... -r
+checking for BSD-compatible nm... /usr/bin/nm -B
+checking whether ln -s works... yes
+checking how to recognize dependent libraries... pass_all
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking dlfcn.h usability... yes
+checking dlfcn.h presence... yes
+checking for dlfcn.h... yes
+checking the maximum length of command line arguments... 196608
+checking command to parse /usr/bin/nm -B output from cc object... ok
+checking for objdir... .libs
+checking for ar... ar
+checking for ranlib... ranlib
+checking for strip... strip
+checking for dsymutil... dsymutil
+checking for nmedit... nmedit
+checking for -single_module linker flag... yes
+checking for -exported_symbols_list linker flag... yes
+checking if cc supports -fno-rtti -fno-exceptions... yes
+checking for cc option to produce PIC... -fno-common
+checking if cc PIC flag -fno-common works... yes
+checking if cc static flag -static works... no
+checking if cc supports -c -o file.o... yes
+checking whether the cc linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... darwin16.1.0 dyld
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+
+creating libtool
+appending configuration tag "CXX" to libtool
+configure: creating ./config.status
+config.status: creating config.h
+bogon:xdebug-2.5.0RC1 admindyn$ make
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug.c -o xdebug.lo 
+mkdir .libs
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug.c  -fno-common -DPIC -o .libs/xdebug.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_branch_info.c -o xdebug_branch_info.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_branch_info.c  -fno-common -DPIC -o .libs/xdebug_branch_info.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_code_coverage.c -o xdebug_code_coverage.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_code_coverage.c  -fno-common -DPIC -o .libs/xdebug_code_coverage.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_com.c -o xdebug_com.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_com.c  -fno-common -DPIC -o .libs/xdebug_com.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_compat.c -o xdebug_compat.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_compat.c  -fno-common -DPIC -o .libs/xdebug_compat.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handler_dbgp.c -o xdebug_handler_dbgp.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handler_dbgp.c  -fno-common -DPIC -o .libs/xdebug_handler_dbgp.o
+/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handler_dbgp.c:913:21: warning: 
+      incompatible pointer types initializing 'jmp_buf *' (aka 'int (*)[37]') with an
+      expression of type 'sigjmp_buf *' (aka 'int (*)[38]') [-Wincompatible-pointer-types]
+        jmp_buf           *original_bailout = EG(bailout);
+                           ^                  ~~~~~~~~~~~
+/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handler_dbgp.c:955:14: warning: 
+      incompatible pointer types assigning to 'sigjmp_buf *' (aka 'int (*)[38]') from
+      'jmp_buf *' (aka 'int (*)[37]') [-Wincompatible-pointer-types]
+        EG(bailout) = original_bailout;
+                    ^ ~~~~~~~~~~~~~~~~
+2 warnings generated.
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handlers.c -o xdebug_handlers.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handlers.c  -fno-common -DPIC -o .libs/xdebug_handlers.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_llist.c -o xdebug_llist.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_llist.c  -fno-common -DPIC -o .libs/xdebug_llist.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_monitor.c -o xdebug_monitor.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_monitor.c  -fno-common -DPIC -o .libs/xdebug_monitor.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_hash.c -o xdebug_hash.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_hash.c  -fno-common -DPIC -o .libs/xdebug_hash.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_private.c -o xdebug_private.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_private.c  -fno-common -DPIC -o .libs/xdebug_private.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_profiler.c -o xdebug_profiler.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_profiler.c  -fno-common -DPIC -o .libs/xdebug_profiler.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_set.c -o xdebug_set.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_set.c  -fno-common -DPIC -o .libs/xdebug_set.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_stack.c -o xdebug_stack.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_stack.c  -fno-common -DPIC -o .libs/xdebug_stack.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_str.c -o xdebug_str.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_str.c  -fno-common -DPIC -o .libs/xdebug_str.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_superglobals.c -o xdebug_superglobals.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_superglobals.c  -fno-common -DPIC -o .libs/xdebug_superglobals.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_tracing.c -o xdebug_tracing.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_tracing.c  -fno-common -DPIC -o .libs/xdebug_tracing.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_textual.c -o xdebug_trace_textual.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_textual.c  -fno-common -DPIC -o .libs/xdebug_trace_textual.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_computerized.c -o xdebug_trace_computerized.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_computerized.c  -fno-common -DPIC -o .libs/xdebug_trace_computerized.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_html.c -o xdebug_trace_html.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_html.c  -fno-common -DPIC -o .libs/xdebug_trace_html.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_var.c -o xdebug_var.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_var.c  -fno-common -DPIC -o .libs/xdebug_var.o
+/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_var.c:417:21: warning: 
+      address of 'cce->properties_info' will always evaluate to 'true'
+      [-Wpointer-bool-conversion]
+                        if (cce && &cce->properties_info && ((zpp = zend_hash_str_f...
+                                ~~  ~~~~~^~~~~~~~~~~~~~~
+/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_var.c:437:23: warning: 
+      address of 'cce->properties_info' will always evaluate to 'true'
+      [-Wpointer-bool-conversion]
+                                        if (cce && &cce->properties_info && ((zpp ...
+                                                ~~  ~~~~~^~~~~~~~~~~~~~~
+/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_var.c:2199:13: warning: 
+      address of 'ce->properties_info' will always evaluate to 'true'
+      [-Wpointer-bool-conversion]
+                        if (&ce->properties_info) {
+                        ~~   ~~~~^~~~~~~~~~~~~~~
+3 warnings generated.
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_xml.c -o xdebug_xml.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_xml.c  -fno-common -DPIC -o .libs/xdebug_xml.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/usefulstuff.c -o usefulstuff.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/usefulstuff.c  -fno-common -DPIC -o .libs/usefulstuff.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=link cc -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -o xdebug.la -export-dynamic -avoid-version -prefer-pic -module -rpath /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/modules  xdebug.lo xdebug_branch_info.lo xdebug_code_coverage.lo xdebug_com.lo xdebug_compat.lo xdebug_handler_dbgp.lo xdebug_handlers.lo xdebug_llist.lo xdebug_monitor.lo xdebug_hash.lo xdebug_private.lo xdebug_profiler.lo xdebug_set.lo xdebug_stack.lo xdebug_str.lo xdebug_superglobals.lo xdebug_tracing.lo xdebug_trace_textual.lo xdebug_trace_computerized.lo xdebug_trace_html.lo xdebug_var.lo xdebug_xml.lo usefulstuff.lo -lm
+cc ${wl}-flat_namespace ${wl}-undefined ${wl}suppress -o .libs/xdebug.so -bundle  .libs/xdebug.o .libs/xdebug_branch_info.o .libs/xdebug_code_coverage.o .libs/xdebug_com.o .libs/xdebug_compat.o .libs/xdebug_handler_dbgp.o .libs/xdebug_handlers.o .libs/xdebug_llist.o .libs/xdebug_monitor.o .libs/xdebug_hash.o .libs/xdebug_private.o .libs/xdebug_profiler.o .libs/xdebug_set.o .libs/xdebug_stack.o .libs/xdebug_str.o .libs/xdebug_superglobals.o .libs/xdebug_tracing.o .libs/xdebug_trace_textual.o .libs/xdebug_trace_computerized.o .libs/xdebug_trace_html.o .libs/xdebug_var.o .libs/xdebug_xml.o .libs/usefulstuff.o  -lm 
+dsymutil .libs/xdebug.so || :
+creating xdebug.la
+(cd .libs && rm -f xdebug.la && ln -s ../xdebug.la xdebug.la)
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=install cp ./xdebug.la /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/modules
+cp ./.libs/xdebug.so /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/modules/xdebug.so
+cp ./.libs/xdebug.lai /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/modules/xdebug.la
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/modules
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `DYLD_LIBRARY_PATH' environment variable
+     during execution
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+Build complete.
+Don't forget to run 'make test'.
+
+bogon:xdebug-2.5.0RC1 admindyn$ make install
+Installing shared extensions:     /usr/local/Cellar/php70/7.0.12_5/lib/php/extensions/no-debug-non-zts-20151012/
+
+  +----------------------------------------------------------------------+
+  |                                                                      |
+  |   INSTALLATION INSTRUCTIONS                                          |
+  |   =========================                                          |
+  |                                                                      |
+  |   See http://xdebug.org/install.php#configure-php for instructions   |
+  |   on how to enable Xdebug for PHP.                                   |
+  |                                                                      |
+  |   Documentation is available online as well:                         |
+  |   - A list of all settings:  http://xdebug.org/docs-settings.php     |
+  |   - A list of all functions: http://xdebug.org/docs-functions.php    |
+  |   - Profiling instructions:  http://xdebug.org/docs-profiling2.php   |
+  |   - Remote debugging:        http://xdebug.org/docs-debugger.php     |
+  |                                                                      |
+  |                                                                      |
+  |   NOTE: Please disregard the message                                 |
+  |       You should add "extension=xdebug.so" to php.ini                |
+  |   that is emitted by the PECL installer. This does not work for      |
+  |   Xdebug.                                                            |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+
+
+bogon:xdebug-2.5.0RC1 admindyn$ cd /usr/local/etc/php/
+bogon:php admindyn$ ls -la
+total 0
+drwxr-xr-x   3 admindyn  admin  102 11 16 14:05 .
+drwxrwxr-x  10 admindyn  admin  340 11 16 15:19 ..
+drwxr-xr-x   6 admindyn  admin  204 11 23 09:58 7.0
+bogon:php admindyn$ cd 7.0/
+bogon:7.0 admindyn$ ls -la
+total 176
+drwxr-xr-x  6 admindyn  admin    204 11 23 09:58 .
+drwxr-xr-x  3 admindyn  admin    102 11 16 14:05 ..
+-rw-r--r--  1 admindyn  admin   4504 11 22 15:33 php-fpm.conf
+-rw-r--r--  1 admindyn  admin   4492 11 16 14:05 php-fpm.conf.default
+drwxr-xr-x  3 admindyn  admin    102 11 22 15:53 php-fpm.d
+-rw-r--r--  1 admindyn  admin  69975 11 23 09:58 php.ini
+bogon:7.0 admindyn$ vi php.ini 
+bogon:7.0 admindyn$ php70-fpm restart
+-n Gracefully shutting down php-fpm 
+-n .
+ done
+-n Starting php-fpm 
+[23-Nov-2016 10:03:40] NOTICE: [pool www] 'user' directive is ignored when FPM is not running as root
+[23-Nov-2016 10:03:40] NOTICE: [pool www] 'group' directive is ignored when FPM is not running as root
+ done
+bogon:7.0 admindyn$ 
+
+-----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bogon:7.0 admindyn$ cd /usr/local/
+bogon:local admindyn$ ls -la
+total 8
+drwxr-xr-x   17 root      wheel   578 11 22 17:03 .
+drwxr-xr-x@  11 root      wheel   374 11 16 11:53 ..
+drwxrwxr-x   31 admindyn  admin  1054 11 18 11:53 Cellar
+drwxrwxr-x    2 admindyn  admin    68 11 15 20:17 Frameworks
+drwxrwxr-x   16 admindyn  admin   544 11 16 12:49 Homebrew
+drwxrwxr-x  188 admindyn  admin  6392 11 22 14:03 bin
+drwxrwxr-x   10 admindyn  admin   340 11 16 15:19 etc
+drwxrwxr-x   79 admindyn  admin  2686 11 18 11:53 include
+drwxrwxr-x  144 admindyn  admin  4896 11 18 11:53 lib
+lrwxr-xr-x    1 root      wheel    28 11 15 15:46 mysql -> mysql-5.7.16-osx10.11-x86_64
+drwxr-xr-x   12 root      wheel   408 11 15 15:47 mysql-5.7.16-osx10.11-x86_64
+drwxrwxr-x   31 admindyn  admin  1054 11 18 11:53 opt
+drwxrwxr-x    7 admindyn  admin   238 11 16 14:05 sbin
+drwxrwxr-x   18 admindyn  admin   612 11 16 17:06 share
+drwxrwxrwx   24 root      wheel   816 11 22 17:36 sitesfile
+drwxr-xr-x    4 root      wheel   136 11 22 14:00 spark
+drwxrwxr-x    7 admindyn  admin   238 11 22 17:08 var
+bogon:local admindyn$ cd Cellar/
+bogon:Cellar admindyn$ cd php70/
+bogon:php70 admindyn$ cd 7.0.12_5/
+bogon:7.0.12_5 admindyn$ ls -la
+total 192
+drwxr-xr-x  15 admindyn  admin    510 11 22 15:47 .
+drwxr-xr-x   3 admindyn  admin    102 11 16 14:04 ..
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 .brew
+-rw-r--r--   1 admindyn  admin   1270 11 16 14:05 INSTALL_RECEIPT.json
+-rw-r--r--   1 admindyn  admin   3218 10 13 22:04 LICENSE
+-rw-r--r--   1 admindyn  admin  81105 10 13 22:04 NEWS
+-rw-r--r--   1 admindyn  admin   1473 10 13 22:04 README.md
+drwxr-xr-x   8 admindyn  admin    272 11 16 14:05 bin
+-rw-r--r--   1 admindyn  admin    752 11 16 14:05 homebrew.mxcl.php70.plist
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 include
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 lib
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 php
+drwxr-xr-x   4 admindyn  admin    136 11 16 14:05 sbin
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 share
+drwxr-xr-x   3 admindyn  admin    102 10 13 22:04 var
+bogon:7.0.12_5 admindyn$ cd sbin/
+bogon:sbin admindyn$ ls -la
+total 22800
+drwxr-xr-x   4 admindyn  admin       136 11 16 14:05 .
+drwxr-xr-x  15 admindyn  admin       510 11 22 15:47 ..
+-rwxr-xr-x   1 admindyn  admin  11667048 11 16 14:05 php-fpm
+-rwxr-xr-x   1 admindyn  admin      2429 11 16 14:05 php70-fpm
+bogon:sbin admindyn$ cd ../
+bogon:7.0.12_5 admindyn$ cd bin/
+bogon:bin admindyn$ ls -la
+total 45440
+drwxr-xr-x   8 admindyn  admin       272 11 16 14:05 .
+drwxr-xr-x  15 admindyn  admin       510 11 22 15:47 ..
+lrwxr-xr-x   1 admindyn  admin         9 10 13 22:04 phar -> phar.phar
+-rwxr-xr-x   1 admindyn  admin     14851 11 16 14:05 phar.phar
+-rwxr-xr-x   1 admindyn  admin  11639220 11 16 14:05 php
+-rwxr-xr-x   1 admindyn  admin  11584204 11 16 14:05 php-cgi
+-rwxr-xr-x   1 admindyn  admin      4480 11 16 14:05 php-config
+-rwxr-xr-x   1 admindyn  admin      4583 11 16 14:05 phpize
+bogon:bin admindyn$ pwd
+/usr/local/Cellar/php70/7.0.12_5/bin
+bogon:bin admindyn$ cd ~/Desktop/xdebug-2.5.0rc1/
+bogon:xdebug-2.5.0rc1 admindyn$ ls -la
+total 200
+drwx------@  5 admindyn  staff    170 11 23 09:58 .
+drwx------+ 12 admindyn  staff    408 11 23 09:56 ..
+-rw-r--r--@  1 admindyn  staff   6148 11 23 09:58 .DS_Store
+-rw-r--r--@  1 admindyn  staff  93146 11 13 00:36 package.xml
+drwxr-xr-x@ 58 admindyn  staff   1972 11 23 09:56 xdebug-2.5.0RC1
+bogon:xdebug-2.5.0rc1 admindyn$ cd xdebug-2.5.0RC1/
+bogon:xdebug-2.5.0RC1 admindyn$ ls -la
+total 1384
+drwxr-xr-x@ 58 admindyn  staff   1972 11 23 09:56 .
+drwx------@  5 admindyn  staff    170 11 23 09:58 ..
+-rw-r--r--@  1 admindyn  staff     53 11 13 00:36 CREDITS
+-rw-r--r--@  1 admindyn  staff   3012 11 13 00:36 LICENSE
+-rw-r--r--@  1 admindyn  staff   2047 11 13 00:36 Makefile.frag
+-rw-r--r--@  1 admindyn  staff    442 11 13 00:36 Makefile.in
+-rw-r--r--@  1 admindyn  staff   1815 11 13 00:36 README.rst
+-rw-r--r--@  1 admindyn  staff   1646 11 13 00:36 config.m4
+-rw-r--r--@  1 admindyn  staff    621 11 13 00:36 config.w32
+drwxr-xr-x@  4 admindyn  staff    136 11 23 09:56 contrib
+drwxr-xr-x@ 23 admindyn  staff    782 11 23 09:56 debugclient
+-rw-r--r--@  1 admindyn  staff   9289 11 13 00:36 php_xdebug.h
+-rw-r--r--@  1 admindyn  staff  20736 11 13 00:36 usefulstuff.c
+-rw-r--r--@  1 admindyn  staff   6158 11 13 00:36 usefulstuff.h
+-rw-r--r--@  1 admindyn  staff  93745 11 13 00:36 xdebug.c
+-rw-r--r--@  1 admindyn  staff  14159 11 13 00:36 xdebug_branch_info.c
+-rw-r--r--@  1 admindyn  staff   4338 11 13 00:36 xdebug_branch_info.h
+-rw-r--r--@  1 admindyn  staff  40102 11 13 00:36 xdebug_code_coverage.c
+-rw-r--r--@  1 admindyn  staff   4629 11 13 00:36 xdebug_code_coverage.h
+-rw-r--r--@  1 admindyn  staff   8133 11 13 00:36 xdebug_com.c
+-rw-r--r--@  1 admindyn  staff   2264 11 13 00:36 xdebug_com.h
+-rw-r--r--@  1 admindyn  staff   8756 11 13 00:36 xdebug_compat.c
+-rw-r--r--@  1 admindyn  staff   4700 11 13 00:36 xdebug_compat.h
+-rw-r--r--@  1 admindyn  staff  76249 11 13 00:36 xdebug_handler_dbgp.c
+-rw-r--r--@  1 admindyn  staff   4389 11 13 00:36 xdebug_handler_dbgp.h
+-rw-r--r--@  1 admindyn  staff   2412 11 13 00:36 xdebug_handlers.c
+-rw-r--r--@  1 admindyn  staff   4756 11 13 00:36 xdebug_handlers.h
+-rw-r--r--@  1 admindyn  staff   7729 11 13 00:36 xdebug_hash.c
+-rw-r--r--@  1 admindyn  staff   2975 11 13 00:36 xdebug_hash.h
+-rw-r--r--@  1 admindyn  staff   3843 11 13 00:36 xdebug_llist.c
+-rw-r--r--@  1 admindyn  staff   2541 11 13 00:36 xdebug_llist.h
+-rw-r--r--@  1 admindyn  staff   1599 11 13 00:36 xdebug_mm.h
+-rw-r--r--@  1 admindyn  staff   5054 11 13 00:36 xdebug_monitor.c
+-rw-r--r--@  1 admindyn  staff   1515 11 13 00:36 xdebug_monitor.h
+-rw-r--r--@  1 admindyn  staff   2583 11 13 00:36 xdebug_private.c
+-rw-r--r--@  1 admindyn  staff   7489 11 13 00:36 xdebug_private.h
+-rw-r--r--@  1 admindyn  staff  12654 11 13 00:36 xdebug_profiler.c
+-rw-r--r--@  1 admindyn  staff   2012 11 13 00:36 xdebug_profiler.h
+-rw-r--r--@  1 admindyn  staff   2168 11 13 00:36 xdebug_set.c
+-rw-r--r--@  1 admindyn  staff   1736 11 13 00:36 xdebug_set.h
+-rw-r--r--@  1 admindyn  staff  56739 11 13 00:36 xdebug_stack.c
+-rw-r--r--@  1 admindyn  staff   1995 11 13 00:36 xdebug_stack.h
+-rw-r--r--@  1 admindyn  staff   3099 11 13 00:36 xdebug_str.c
+-rw-r--r--@  1 admindyn  staff   1918 11 13 00:36 xdebug_str.h
+-rw-r--r--@  1 admindyn  staff   7240 11 13 00:36 xdebug_superglobals.c
+-rw-r--r--@  1 admindyn  staff   2018 11 13 00:36 xdebug_superglobals.h
+-rw-r--r--@  1 admindyn  staff   8370 11 13 00:36 xdebug_trace_computerized.c
+-rw-r--r--@  1 admindyn  staff   1453 11 13 00:36 xdebug_trace_computerized.h
+-rw-r--r--@  1 admindyn  staff   4804 11 13 00:36 xdebug_trace_html.c
+-rw-r--r--@  1 admindyn  staff   1413 11 13 00:36 xdebug_trace_html.h
+-rw-r--r--@  1 admindyn  staff  10775 11 13 00:36 xdebug_trace_textual.c
+-rw-r--r--@  1 admindyn  staff   1428 11 13 00:36 xdebug_trace_textual.h
+-rw-r--r--@  1 admindyn  staff   5356 11 13 00:36 xdebug_tracing.c
+-rw-r--r--@  1 admindyn  staff   1890 11 13 00:36 xdebug_tracing.h
+-rw-r--r--@  1 admindyn  staff  94663 11 13 00:36 xdebug_var.c
+-rw-r--r--@  1 admindyn  staff   5088 11 13 00:36 xdebug_var.h
+-rw-r--r--@  1 admindyn  staff   5656 11 13 00:36 xdebug_xml.c
+-rw-r--r--@  1 admindyn  staff   3111 11 13 00:36 xdebug_xml.h
+bogon:xdebug-2.5.0RC1 admindyn$ /usr/local/Cellar/php70/7.0.12_5/bin/phpize 
+Configuring for:
+PHP Api Version:         20151012
+Zend Module Api No:      20151012
+Zend Extension Api No:   320151012
+bogon:xdebug-2.5.0RC1 admindyn$ ./configure --enable-xdebug
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for cc... cc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether cc accepts -g... yes
+checking for cc option to accept ISO C89... none needed
+checking how to run the C preprocessor... cc -E
+checking for icc... no
+checking for suncc... no
+checking whether cc understands -c and -o together... yes
+checking for system library directory... lib
+checking if compiler supports -R... no
+checking if compiler supports -Wl,-rpath,... yes
+checking build system type... x86_64-apple-darwin16.1.0
+checking host system type... x86_64-apple-darwin16.1.0
+checking target system type... x86_64-apple-darwin16.1.0
+checking for PHP prefix... /usr/local/Cellar/php70/7.0.12_5
+checking for PHP includes... -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib
+checking for PHP extension directory... /usr/local/Cellar/php70/7.0.12_5/lib/php/extensions/no-debug-non-zts-20151012
+checking for PHP installed headers prefix... /usr/local/Cellar/php70/7.0.12_5/include/php
+checking if debug is enabled... no
+checking if zts is enabled... no
+checking for re2c... no
+configure: WARNING: You will need re2c 0.13.4 or later if you want to regenerate PHP parsers.
+checking for gawk... no
+checking for nawk... no
+checking for awk... awk
+checking if awk is broken... no
+checking whether to enable Xdebug support... yes, shared
+checking Check for supported PHP versions... supported (7.0.12)
+checking for gettimeofday... yes
+checking for cos in -lm... yes
+checking for ld used by cc... /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+checking if the linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld... no
+checking for /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld option to reload object files... -r
+checking for BSD-compatible nm... /usr/bin/nm -B
+checking whether ln -s works... yes
+checking how to recognize dependent libraries... pass_all
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking dlfcn.h usability... yes
+checking dlfcn.h presence... yes
+checking for dlfcn.h... yes
+checking the maximum length of command line arguments... 196608
+checking command to parse /usr/bin/nm -B output from cc object... ok
+checking for objdir... .libs
+checking for ar... ar
+checking for ranlib... ranlib
+checking for strip... strip
+checking for dsymutil... dsymutil
+checking for nmedit... nmedit
+checking for -single_module linker flag... yes
+checking for -exported_symbols_list linker flag... yes
+checking if cc supports -fno-rtti -fno-exceptions... yes
+checking for cc option to produce PIC... -fno-common
+checking if cc PIC flag -fno-common works... yes
+checking if cc static flag -static works... no
+checking if cc supports -c -o file.o... yes
+checking whether the cc linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... darwin16.1.0 dyld
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+
+creating libtool
+appending configuration tag "CXX" to libtool
+configure: creating ./config.status
+config.status: creating config.h
+bogon:xdebug-2.5.0RC1 admindyn$ make
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug.c -o xdebug.lo 
+mkdir .libs
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug.c  -fno-common -DPIC -o .libs/xdebug.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_branch_info.c -o xdebug_branch_info.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_branch_info.c  -fno-common -DPIC -o .libs/xdebug_branch_info.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_code_coverage.c -o xdebug_code_coverage.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_code_coverage.c  -fno-common -DPIC -o .libs/xdebug_code_coverage.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_com.c -o xdebug_com.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_com.c  -fno-common -DPIC -o .libs/xdebug_com.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_compat.c -o xdebug_compat.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_compat.c  -fno-common -DPIC -o .libs/xdebug_compat.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handler_dbgp.c -o xdebug_handler_dbgp.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handler_dbgp.c  -fno-common -DPIC -o .libs/xdebug_handler_dbgp.o
+/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handler_dbgp.c:913:21: warning: 
+      incompatible pointer types initializing 'jmp_buf *' (aka 'int (*)[37]') with an
+      expression of type 'sigjmp_buf *' (aka 'int (*)[38]') [-Wincompatible-pointer-types]
+        jmp_buf           *original_bailout = EG(bailout);
+                           ^                  ~~~~~~~~~~~
+/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handler_dbgp.c:955:14: warning: 
+      incompatible pointer types assigning to 'sigjmp_buf *' (aka 'int (*)[38]') from
+      'jmp_buf *' (aka 'int (*)[37]') [-Wincompatible-pointer-types]
+        EG(bailout) = original_bailout;
+                    ^ ~~~~~~~~~~~~~~~~
+2 warnings generated.
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handlers.c -o xdebug_handlers.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_handlers.c  -fno-common -DPIC -o .libs/xdebug_handlers.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_llist.c -o xdebug_llist.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_llist.c  -fno-common -DPIC -o .libs/xdebug_llist.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_monitor.c -o xdebug_monitor.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_monitor.c  -fno-common -DPIC -o .libs/xdebug_monitor.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_hash.c -o xdebug_hash.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_hash.c  -fno-common -DPIC -o .libs/xdebug_hash.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_private.c -o xdebug_private.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_private.c  -fno-common -DPIC -o .libs/xdebug_private.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_profiler.c -o xdebug_profiler.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_profiler.c  -fno-common -DPIC -o .libs/xdebug_profiler.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_set.c -o xdebug_set.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_set.c  -fno-common -DPIC -o .libs/xdebug_set.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_stack.c -o xdebug_stack.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_stack.c  -fno-common -DPIC -o .libs/xdebug_stack.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_str.c -o xdebug_str.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_str.c  -fno-common -DPIC -o .libs/xdebug_str.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_superglobals.c -o xdebug_superglobals.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_superglobals.c  -fno-common -DPIC -o .libs/xdebug_superglobals.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_tracing.c -o xdebug_tracing.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_tracing.c  -fno-common -DPIC -o .libs/xdebug_tracing.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_textual.c -o xdebug_trace_textual.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_textual.c  -fno-common -DPIC -o .libs/xdebug_trace_textual.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_computerized.c -o xdebug_trace_computerized.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_computerized.c  -fno-common -DPIC -o .libs/xdebug_trace_computerized.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_html.c -o xdebug_trace_html.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_trace_html.c  -fno-common -DPIC -o .libs/xdebug_trace_html.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_var.c -o xdebug_var.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_var.c  -fno-common -DPIC -o .libs/xdebug_var.o
+/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_var.c:417:21: warning: 
+      address of 'cce->properties_info' will always evaluate to 'true'
+      [-Wpointer-bool-conversion]
+                        if (cce && &cce->properties_info && ((zpp = zend_hash_str_f...
+                                ~~  ~~~~~^~~~~~~~~~~~~~~
+/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_var.c:437:23: warning: 
+      address of 'cce->properties_info' will always evaluate to 'true'
+      [-Wpointer-bool-conversion]
+                                        if (cce && &cce->properties_info && ((zpp ...
+                                                ~~  ~~~~~^~~~~~~~~~~~~~~
+/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_var.c:2199:13: warning: 
+      address of 'ce->properties_info' will always evaluate to 'true'
+      [-Wpointer-bool-conversion]
+                        if (&ce->properties_info) {
+                        ~~   ~~~~^~~~~~~~~~~~~~~
+3 warnings generated.
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_xml.c -o xdebug_xml.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/xdebug_xml.c  -fno-common -DPIC -o .libs/xdebug_xml.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=compile cc  -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/usefulstuff.c -o usefulstuff.lo 
+ cc -I. -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/usefulstuff.c  -fno-common -DPIC -o .libs/usefulstuff.o
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=link cc -DPHP_ATOM_INC -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/include -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/main -I/Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1 -I/usr/local/Cellar/php70/7.0.12_5/include/php -I/usr/local/Cellar/php70/7.0.12_5/include/php/main -I/usr/local/Cellar/php70/7.0.12_5/include/php/TSRM -I/usr/local/Cellar/php70/7.0.12_5/include/php/Zend -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext -I/usr/local/Cellar/php70/7.0.12_5/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -o xdebug.la -export-dynamic -avoid-version -prefer-pic -module -rpath /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/modules  xdebug.lo xdebug_branch_info.lo xdebug_code_coverage.lo xdebug_com.lo xdebug_compat.lo xdebug_handler_dbgp.lo xdebug_handlers.lo xdebug_llist.lo xdebug_monitor.lo xdebug_hash.lo xdebug_private.lo xdebug_profiler.lo xdebug_set.lo xdebug_stack.lo xdebug_str.lo xdebug_superglobals.lo xdebug_tracing.lo xdebug_trace_textual.lo xdebug_trace_computerized.lo xdebug_trace_html.lo xdebug_var.lo xdebug_xml.lo usefulstuff.lo -lm
+cc ${wl}-flat_namespace ${wl}-undefined ${wl}suppress -o .libs/xdebug.so -bundle  .libs/xdebug.o .libs/xdebug_branch_info.o .libs/xdebug_code_coverage.o .libs/xdebug_com.o .libs/xdebug_compat.o .libs/xdebug_handler_dbgp.o .libs/xdebug_handlers.o .libs/xdebug_llist.o .libs/xdebug_monitor.o .libs/xdebug_hash.o .libs/xdebug_private.o .libs/xdebug_profiler.o .libs/xdebug_set.o .libs/xdebug_stack.o .libs/xdebug_str.o .libs/xdebug_superglobals.o .libs/xdebug_tracing.o .libs/xdebug_trace_textual.o .libs/xdebug_trace_computerized.o .libs/xdebug_trace_html.o .libs/xdebug_var.o .libs/xdebug_xml.o .libs/usefulstuff.o  -lm 
+dsymutil .libs/xdebug.so || :
+creating xdebug.la
+(cd .libs && rm -f xdebug.la && ln -s ../xdebug.la xdebug.la)
+/bin/sh /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/libtool --mode=install cp ./xdebug.la /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/modules
+cp ./.libs/xdebug.so /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/modules/xdebug.so
+cp ./.libs/xdebug.lai /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/modules/xdebug.la
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /Users/admindyn/Desktop/xdebug-2.5.0rc1/xdebug-2.5.0RC1/modules
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `DYLD_LIBRARY_PATH' environment variable
+     during execution
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+Build complete.
+Don't forget to run 'make test'.
+
+bogon:xdebug-2.5.0RC1 admindyn$ make install
+Installing shared extensions:     /usr/local/Cellar/php70/7.0.12_5/lib/php/extensions/no-debug-non-zts-20151012/
+
+  +----------------------------------------------------------------------+
+  |                                                                      |
+  |   INSTALLATION INSTRUCTIONS                                          |
+  |   =========================                                          |
+  |                                                                      |
+  |   See http://xdebug.org/install.php#configure-php for instructions   |
+  |   on how to enable Xdebug for PHP.                                   |
+  |                                                                      |
+  |   Documentation is available online as well:                         |
+  |   - A list of all settings:  http://xdebug.org/docs-settings.php     |
+  |   - A list of all functions: http://xdebug.org/docs-functions.php    |
+  |   - Profiling instructions:  http://xdebug.org/docs-profiling2.php   |
+  |   - Remote debugging:        http://xdebug.org/docs-debugger.php     |
+  |                                                                      |
+  |                                                                      |
+  |   NOTE: Please disregard the message                                 |
+  |       You should add "extension=xdebug.so" to php.ini                |
+  |   that is emitted by the PECL installer. This does not work for      |
+  |   Xdebug.                                                            |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+
+
+bogon:xdebug-2.5.0RC1 admindyn$ cd /usr/local/etc/php/
+bogon:php admindyn$ ls -la
+total 0
+drwxr-xr-x   3 admindyn  admin  102 11 16 14:05 .
+drwxrwxr-x  10 admindyn  admin  340 11 16 15:19 ..
+drwxr-xr-x   6 admindyn  admin  204 11 23 09:58 7.0
+bogon:php admindyn$ cd 7.0/
+bogon:7.0 admindyn$ ls -la
+total 176
+drwxr-xr-x  6 admindyn  admin    204 11 23 09:58 .
+drwxr-xr-x  3 admindyn  admin    102 11 16 14:05 ..
+-rw-r--r--  1 admindyn  admin   4504 11 22 15:33 php-fpm.conf
+-rw-r--r--  1 admindyn  admin   4492 11 16 14:05 php-fpm.conf.default
+drwxr-xr-x  3 admindyn  admin    102 11 22 15:53 php-fpm.d
+-rw-r--r--  1 admindyn  admin  69975 11 23 09:58 php.ini
+bogon:7.0 admindyn$ vi php.ini 
+bogon:7.0 admindyn$ php70-fpm restart
+-n Gracefully shutting down php-fpm 
+-n .
+ done
+-n Starting php-fpm 
+[23-Nov-2016 10:03:40] NOTICE: [pool www] 'user' directive is ignored when FPM is not running as root
+[23-Nov-2016 10:03:40] NOTICE: [pool www] 'group' directive is ignored when FPM is not running as root
+ done
+bogon:7.0 admindyn$ cd /usr/local/etc/php/7.0/
+bogon:7.0 admindyn$ vi php.ini 
+bogon:7.0 admindyn$ vi php.ini 
+
+--------------------------
+
+
+[xdebug]
+zend_extension="/usr/local/Cellar/php70/7.0.12_5/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so"
+;PHP with the Xdebug extension and remote debugging enabled
+xdebug.remote_enable=1
+xdebug.remote_host=localhost
+xdebug.remote_port=9000
+xdebug.remote_autostart=1
+
+
+------------------------
+
+
+vi操作
+1.跳到文本的最后一行：按“G”,即“shift+g”
+
+2.跳到最后一行的最后一个字符 ： 
+先重复1的操作即按“G”，之后按“$”键，即“shift+4”。
+
+3.跳到第一行的第一个字符：先按两次“g”，
+
+4.跳转到当前行的第一个字符：在当前行按“0”。
+5.vi到行首, 在vi模式下按”0″ , 是数字0哈,就可以到达行首啦
+到行尾是$, 就是shift+4
+
+6.
+ggVG
+选中内容以后就可以其他的操作了，比如：
+d  删除选中内容
+y  复制选中内容到0号寄存器
++y  复制选中内容到＋寄存器，也就是系统的剪贴板，供其他程序用
+全部删除：按esc后，然后dG
+全部复制：按esc后，然后ggyG
+全选高亮显示：按esc后，然后ggvG或者ggVG
+
+要复制到别的地方，用 "+y 来复制，注意是三个字符。
+gg"+yG 
+但是上面的方式复制的全部的内容只能在Linux上粘贴，粘贴到windows上后，只能是第一个屏幕的内容，具体还要怎么设置还不清楚。
+删除全部的内容
+d$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

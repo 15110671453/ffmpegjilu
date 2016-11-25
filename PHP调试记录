@@ -1,0 +1,51 @@
+今天看到一片文章 nginx 也是可以调试的
+
+我现在研究phpstorm 开发php环境
+ 
+ 首先 用nginx调度 php-fpm 来解析php代码执行
+
+ 保证nginx 启动 php-fpm 启动
+
+nginx的web服务的根目录 检查 php-fpm 检查其配置文件php-fpm.d文件夹下 看到www.conf中 php-fpm监听的是9000端口号
+
+会与后面的xdebug扩展监听的端口号冲突
+
+因此配置php时 在php.ini中 xdebug zend扩展的监听端口号 修改为9999 不要使用默认
+
+那么服务器端的配置基本搞定
+
+客户端phpstorm的配置
+
+在prefrence build deployment下配置 一下 对应的servre环境 可能会影响到 built-in server
+
+在language php debug 下配置 端口号 与服务器一致 9999
+DBGp proxy 配置 HOST localhost IDEKEY PHPSTORM 端口号 9999 与服务器一致
+
+
+对于客户端MACGdbp 设置 也是 配置端口号 改为 9999
+
+安装google浏览器 也需要为浏览器安装xdebug扩展 注意配置该扩展时选择的IDEKEY 如果想让调试内容在macgdbp中看到就需要 将IDEKEY设置为 macgdbp 如果想在phpstorm中看到就需要 设置为phpstorm
+
+另外因为php引擎的 php.ini文件中 配置xdebug的端口号为 9999 所有要用到
+该工具的客户端 在自己的配置文件中 debug 端口号都要改为9999 ；再者 phpstorm 与 macgdbp 都内置xdebug 的引擎 都在监听端口号9999 所以 不要同时开启；再者 php.ini 中要不要设置idekey 如果设置了 以后只能用一个开发工具来监听调试 
+
+
+
+再者在phpstorm中使用调试时  先开启监听 然后在要设置断点的行设置断点
+
+再运行debug 开始步步调试
+
+macgdbp
+
+
+
+
+
+
+
+
+
+
+
+
+
